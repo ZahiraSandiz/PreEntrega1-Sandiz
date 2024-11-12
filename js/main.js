@@ -1,18 +1,4 @@
-// Obtener entradas mediante propt
-
-// Función Filtrar (Ej precio entre 10000 y 20000)
-
-// Funcion finalizarCompra
-// Alert gracias por su compra
-
-//1 array de objetos
-
-// Sobre array
-//        ---> 1 Método de búsqueda: find o filter
-//        ---> 1 método de filtrado : filter
-
 // Array de objetos
-
 const productos = [
   { nombre: "Limpiador Facial", id: 10, tipo: "Limpiador", precio: 15800 },
   { nombre: "Tónico Refrescante", id: 32, tipo: "Tónico", precio: 13500 },
