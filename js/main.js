@@ -1,177 +1,532 @@
-// Array de objetos
-const productos = [
-  { nombre: "Limpiador Facial", id: 10, tipo: "Limpiador", precio: 15800 },
-  { nombre: "Tónico Refrescante", id: 32, tipo: "Tónico", precio: 13500 },
-  { nombre: "Sérum de Vitamina C", id: 43, tipo: "Sérum", precio: 20000 },
-  { nombre: "Hidratante Facial", id: 14, tipo: "Hidratante", precio: 20075 },
-  {
-    nombre: "Protector Solar SPF 50",
-    id: 35,
-    tipo: "Protector Solar",
-    precio: 25000,
-  },
-  {
-    nombre: "Exfoliante Facial Suave",
-    id: 16,
-    tipo: "Exfoliante",
-    precio: 18500,
-  },
-  {
-    nombre: "Mascarilla de Arcilla",
-    id: 27,
-    tipo: "Mascarilla",
-    precio: 15000,
-  },
-  {
-    nombre: "Crema Antiarrugas de Noche",
-    id: 81,
-    tipo: "Hidratante",
-    precio: 30200,
-  },
-  {
-    nombre: "Contorno de Ojos",
-    id: 49,
-    tipo: "Contorno de Ojos",
-    precio: 28500,
-  },
-];
+function funcionPrincipal() {
+  const productos = [
+    // Anillos dorados
+    {
+      id: 1,
+      nombre: "Anillo Sol Dorado",
+      tipo: "anillo",
+      color: "dorado",
+      precio: 18000,
+      rutaImagen: "./img/anillos/dorados/img1.jpg",
+      stock: 17,
+    },
+    {
+      id: 2,
+      nombre: "Anillo Brillo Lunar",
+      tipo: "anillo",
+      color: "dorado",
+      precio: 22000,
+      rutaImagen: "./img/anillos/dorados/img2.jpg",
+      stock: 12,
+    },
+    {
+      id: 3,
+      nombre: "Anillo Destello",
+      tipo: "anillo",
+      color: "dorado",
+      precio: 20000,
+      rutaImagen: "./img/anillos/dorados/img3.jpg",
+      stock: 1,
+    },
+    {
+      id: 4,
+      nombre: "Anillo Elegancia",
+      tipo: "anillo",
+      color: "dorado",
+      precio: 25000,
+      rutaImagen: "./img/anillos/dorados/img4.jpg",
+      stock: 17,
+    },
+    {
+      id: 5,
+      nombre: "Anillo Oro Vivo",
+      tipo: "anillo",
+      color: "dorado",
+      precio: 19000,
+      rutaImagen: "./img/anillos/dorados/img5.jpg",
+      stock: 13,
+    },
+    {
+      id: 6,
+      nombre: "Anillo Real Dorado",
+      tipo: "anillo",
+      color: "dorado",
+      precio: 23000,
+      rutaImagen: "./img/anillos/dorados/img6.jpg",
+      stock: 7,
+    },
+    {
+      id: 7,
+      nombre: "Anillo Resplandor",
+      tipo: "anillo",
+      color: "dorado",
+      precio: 24000,
+      rutaImagen: "./img/anillos/dorados/img7.jpg",
+      stock: 15,
+    },
+    {
+      id: 8,
+      nombre: "Anillo Fulgor",
+      tipo: "anillo",
+      color: "dorado",
+      precio: 21000,
+      rutaImagen: "./img/anillos/dorados/img8.jpg",
+      stock: 5,
+    },
 
-// Función saludar
-let nombreUsuario = prompt("Ingrese su nombre");
-const saludar = (nombre) => {
-  while (
-    typeof nombre !== "string" ||
-    // Verifica que sea un string
-    nombre.trim() === "" ||
-    //Verifica que no sea una cadena vacía ("").
-    /\d/.test(nombre)
-    // Evalúa que la cadena "nombre" no tenga digitos.
-  ) {
-    nombre = prompt("Incorrecto, vuelva a ingresar su nombre");
-  }
+    // Anillos plateados
+    {
+      id: 9,
+      nombre: "Anillo Luna Plateada",
+      tipo: "anillo",
+      color: "plateado",
+      precio: 16000,
+      rutaImagen: "./img/anillos/plateados/img1.jpg",
+      stock: 9,
+    },
+    {
+      id: 10,
+      nombre: "Anillo Brillo de Noche",
+      tipo: "anillo",
+      color: "plateado",
+      precio: 17000,
+      rutaImagen: "./img/anillos/plateados/img2.jpg",
+      stock: 18,
+    },
+    {
+      id: 11,
+      nombre: "Anillo Plata Pura",
+      tipo: "anillo",
+      color: "plateado",
+      precio: 18000,
+      rutaImagen: "./img/anillos/plateados/img3.jpg",
+      stock: 11,
+    },
+    {
+      id: 12,
+      nombre: "Anillo Estrella",
+      tipo: "anillo",
+      color: "plateado",
+      precio: 19000,
+      rutaImagen: "./img/anillos/plateados/img4.jpg",
+      stock: 4,
+    },
+    {
+      id: 13,
+      nombre: "Anillo Aurora Plateada",
+      tipo: "anillo",
+      color: "plateado",
+      precio: 20000,
+      rutaImagen: "./img/anillos/plateados/img5.jpg",
+      stock: 16,
+    },
 
-  alert("Hola " + nombre + " ¡Bienvenido/a a nuestra web!");
-  return;
-};
+    // Aritos dorados
+    {
+      id: 14,
+      nombre: "Aritos Oro Clásico",
+      tipo: "arito",
+      color: "dorado",
+      precio: 15000,
+      rutaImagen: "./img/aritos/dorados/img1.jpg",
+      stock: 6,
+    },
+    {
+      id: 15,
+      nombre: "Aritos Esfera Dorada",
+      tipo: "arito",
+      color: "dorado",
+      precio: 17000,
+      rutaImagen: "./img/aritos/dorados/img2.jpg",
+      stock: 14,
+    },
+    {
+      id: 16,
+      nombre: "Aritos Sol",
+      tipo: "arito",
+      color: "dorado",
+      precio: 16000,
+      rutaImagen: "./img/aritos/dorados/img3.jpg",
+      stock: 20,
+    },
+    {
+      id: 17,
+      nombre: "Aritos Resplandor",
+      tipo: "arito",
+      color: "dorado",
+      precio: 18000,
+      rutaImagen: "./img/aritos/dorados/img4.jpg",
+      stock: 8,
+    },
+    {
+      id: 18,
+      nombre: "Aritos Delicados",
+      tipo: "arito",
+      color: "dorado",
+      precio: 19000,
+      rutaImagen: "./img/aritos/dorados/img5.jpg",
+      stock: 10,
+    },
+    {
+      id: 19,
+      nombre: "Aritos Estrella Dorada",
+      tipo: "arito",
+      color: "dorado",
+      precio: 21000,
+      rutaImagen: "./img/aritos/dorados/img6.jpg",
+      stock: 3,
+    },
+    {
+      id: 20,
+      nombre: "Aritos Brillo Solar",
+      tipo: "arito",
+      color: "dorado",
+      precio: 22000,
+      rutaImagen: "./img/aritos/dorados/img7.jpg",
+      stock: 19,
+    },
+    {
+      id: 21,
+      nombre: "Aritos Oro Fino",
+      tipo: "arito",
+      color: "dorado",
+      precio: 23000,
+      rutaImagen: "./img/aritos/dorados/img8.jpg",
+      stock: 12,
+    },
 
-saludar(nombreUsuario);
+    // Aritos plateados
+    {
+      id: 22,
+      nombre: "Aritos Plata Lunar",
+      tipo: "arito",
+      color: "plateado",
+      precio: 16000,
+      rutaImagen: "./img/aritos/plateados/img1.jpg",
+      stock: 8,
+    },
+    {
+      id: 23,
+      nombre: "Aritos Estelar",
+      tipo: "arito",
+      color: "plateado",
+      precio: 15000,
+      rutaImagen: "./img/aritos/plateados/img2.jpg",
+      stock: 4,
+    },
+    {
+      id: 24,
+      nombre: "Aritos Mini Plata",
+      tipo: "arito",
+      color: "plateado",
+      precio: 17000,
+      rutaImagen: "./img/aritos/plateados/img3.jpg",
+      stock: 14,
+    },
+    {
+      id: 25,
+      nombre: "Aritos Aurora Plateada",
+      tipo: "arito",
+      color: "plateado",
+      precio: 18000,
+      rutaImagen: "./img/aritos/plateados/img4.jpg",
+      stock: 7,
+    },
+    {
+      id: 26,
+      nombre: "Aritos Delicados Plateados",
+      tipo: "arito",
+      color: "plateado",
+      precio: 19000,
+      rutaImagen: "./img/aritos/plateados/img5.jpg",
+      stock: 11,
+    },
 
-// Algoritmo utilizando un ciclo - Estructura iterativa (for)
-let listaDeProductos = "";
-for (let i = 0; i < productos.length; i++) {
-  listaDeProductos += productos[i].nombre + " - $" + productos[i].precio;
-  if (i < productos.length - 1) {
-    listaDeProductos += "\n"; // Agregar salto de línea
-  }
+    // Collares dorados
+    {
+      id: 27,
+      nombre: "Collar Sol Dorado",
+      tipo: "collar",
+      color: "dorado",
+      precio: 28000,
+      rutaImagen: "./img/collares/dorados/img1.jpg",
+      stock: 13,
+    },
+    {
+      id: 28,
+      nombre: "Collar Oro Real",
+      tipo: "collar",
+      color: "dorado",
+      precio: 30000,
+      rutaImagen: "./img/collares/dorados/img2.jpg",
+      stock: 2,
+    },
+    {
+      id: 29,
+      nombre: "Collar Delicado Dorado",
+      tipo: "collar",
+      color: "dorado",
+      precio: 27000,
+      rutaImagen: "./img/collares/dorados/img3.jpg",
+      stock: 18,
+    },
+    {
+      id: 30,
+      nombre: "Collar Brillo Solar",
+      tipo: "collar",
+      color: "dorado",
+      precio: 29000,
+      rutaImagen: "./img/collares/dorados/img4.jpg",
+      stock: 8,
+    },
+    {
+      id: 31,
+      nombre: "Collar Elegancia",
+      tipo: "collar",
+      color: "dorado",
+      precio: 31000,
+      rutaImagen: "./img/collares/dorados/img5.jpg",
+      stock: 14,
+    },
+    {
+      id: 32,
+      nombre: "Collar Radiante",
+      tipo: "collar",
+      color: "dorado",
+      precio: 32000,
+      rutaImagen: "./img/collares/dorados/img6.jpg",
+      stock: 4,
+    },
+    {
+      id: 33,
+      nombre: "Collar Esplendor Dorado",
+      tipo: "collar",
+      color: "dorado",
+      precio: 35000,
+      rutaImagen: "./img/collares/dorados/img7.jpg",
+      stock: 9,
+    },
+    {
+      id: 34,
+      nombre: "Collar Fulgor",
+      tipo: "collar",
+      color: "dorado",
+      precio: 33000,
+      rutaImagen: "./img/collares/dorados/img8.jpg",
+      stock: 16,
+    },
+    {
+      id: 35,
+      nombre: "Collar Oro Vivo",
+      tipo: "collar",
+      color: "dorado",
+      precio: 29000,
+      rutaImagen: "./img/collares/dorados/img9.jpg",
+      stock: 7,
+    },
+    {
+      id: 36,
+      nombre: "Collar Dorado Supremo",
+      tipo: "collar",
+      color: "dorado",
+      precio: 34000,
+      rutaImagen: "./img/collares/dorados/img10.jpg",
+      stock: 12,
+    },
+
+    // Collares plateados
+    {
+      id: 37,
+      nombre: "Collar Luna Plateada",
+      tipo: "collar",
+      color: "plateado",
+      precio: 25000,
+      rutaImagen: "./img/collares/plateados/img1.jpg",
+      stock: 15,
+    },
+    {
+      id: 38,
+      nombre: "Collar Plata Estelar",
+      tipo: "collar",
+      color: "plateado",
+      precio: 26000,
+      rutaImagen: "./img/collares/plateados/img2.jpg",
+      stock: 3,
+    },
+    {
+      id: 39,
+      nombre: "Collar Aurora Plateada",
+      tipo: "collar",
+      color: "plateado",
+      precio: 24000,
+      rutaImagen: "./img/collares/plateados/img3.jpg",
+      stock: 10,
+    },
+    {
+      id: 40,
+      nombre: "Collar Brillo Lunar",
+      tipo: "collar",
+      color: "plateado",
+      precio: 23000,
+      rutaImagen: "./img/collares/plateados/img4.jpg",
+      stock: 8,
+    },
+    {
+      id: 41,
+      nombre: "Collar Pureza Plateada",
+      tipo: "collar",
+      color: "plateado",
+      precio: 27000,
+      rutaImagen: "./img/collares/plateados/img5.jpg",
+      stock: 6,
+    },
+    {
+      id: 42,
+      nombre: "Collar Elegancia Plateada",
+      tipo: "collar",
+      color: "plateado",
+      precio: 28000,
+      rutaImagen: "./img/collares/plateados/img6.jpg",
+      stock: 14,
+    },
+
+    // Pulseras doradas
+    {
+      id: 43,
+      nombre: "Pulsera Oro Clásico",
+      tipo: "pulsera",
+      color: "dorado",
+      precio: 19000,
+      rutaImagen: "./img/pulseras/dorados/img1.jpg",
+      stock: 20,
+    },
+    {
+      id: 44,
+      nombre: "Pulsera Sol Dorado",
+      tipo: "pulsera",
+      color: "dorado",
+      precio: 21000,
+      rutaImagen: "./img/pulseras/dorados/img2.jpg",
+      stock: 7,
+    },
+    {
+      id: 45,
+      nombre: "Pulsera Elegante Dorada",
+      tipo: "pulsera",
+      color: "dorado",
+      precio: 23000,
+      rutaImagen: "./img/pulseras/dorados/img3.jpg",
+      stock: 5,
+    },
+    {
+      id: 46,
+      nombre: "Pulsera Espléndida",
+      tipo: "pulsera",
+      color: "dorado",
+      precio: 20000,
+      rutaImagen: "./img/pulseras/dorados/img4.jpg",
+      stock: 12,
+    },
+    {
+      id: 47,
+      nombre: "Pulsera Dorada Viva",
+      tipo: "pulsera",
+      color: "dorado",
+      precio: 18000,
+      rutaImagen: "./img/pulseras/dorados/img5.jpg",
+      stock: 4,
+    },
+    {
+      id: 48,
+      nombre: "Pulsera Resplandor Dorado",
+      tipo: "pulsera",
+      color: "dorado",
+      precio: 25000,
+      rutaImagen: "./img/pulseras/dorados/img6.jpg",
+      stock: 18,
+    },
+    {
+      id: 49,
+      nombre: "Pulsera Delicada",
+      tipo: "pulsera",
+      color: "dorado",
+      precio: 24000,
+      rutaImagen: "./img/pulseras/dorados/img7.jpg",
+      stock: 11,
+    },
+    {
+      id: 50,
+      nombre: "Pulsera Radiante",
+      tipo: "pulsera",
+      color: "dorado",
+      precio: 22000,
+      rutaImagen: "./img/pulseras/dorados/img8.jpg",
+      stock: 9,
+    },
+
+    // Pulseras plateadas
+    {
+      id: 51,
+      nombre: "Pulsera Lunar",
+      tipo: "pulsera",
+      color: "plateado",
+      precio: 16000,
+      rutaImagen: "./img/pulseras/plateados/img1.jpg",
+      stock: 3,
+    },
+    {
+      id: 52,
+      nombre: "Pulsera Estrella Plateada",
+      tipo: "pulsera",
+      color: "plateado",
+      precio: 17000,
+      rutaImagen: "./img/pulseras/plateados/img2.jpg",
+      stock: 1,
+    },
+    {
+      id: 53,
+      nombre: "Pulsera Aurora Plateada",
+      tipo: "pulsera",
+      color: "plateado",
+      precio: 19000,
+      rutaImagen: "./img/pulseras/plateados/img3.jpg",
+      stock: 7,
+    },
+  ];
+  crearCardsProductos(productos);
 }
-alert("Estos son nuestros productos disponibles:\n" + listaDeProductos);
 
-// Función para ordenar de mayor a menor o de menor a mayor
-const ordenarPorPrecio = (productos) => {
-  const numeroIngresado = prompt(
-    "Para ordenar los productos de mayor a menor, ingrese 1 \nPara ordenar los productos de menor a mayor, ingrese 2"
-  );
+funcionPrincipal();
 
-  let productosOrdenados;
-
-  if (numeroIngresado == 1) {
-    productosOrdenados = productos.sort((a, b) => b.precio - a.precio);
-  } else if (numeroIngresado == 2) {
-    productosOrdenados = productos.sort((a, b) => a.precio - b.precio);
-  } else {
-    return alert("Opción inválida. Intenta de nuevo.");
-  }
-
-  // Usamos map para transformar el objeto a una cadena, join para unir los elementos en una sola cadena con saltos de línea
-  const productosFormateados = productosOrdenados
-    .map(
-      (producto, index) =>
-        `${index + 1}. ${producto.nombre} - $${producto.precio}`
-    )
-    .join("\n\n");
-
-  alert("Productos ordenados:\n\n" + productosFormateados);
-};
-
-ordenarPorPrecio(productos);
-
-// Función para agregar productos al carrito y finalizar compra
-
-let carrito = [];
-
-const agregarProductosAlCarrito = (productos) => {
-  // Pedir el nombre del producto al usuario
-  const nombreProducto = prompt(
-    "Ingrese el nombre del producto que desea agregar al carrito:"
-  );
-
-  // Buscar el producto en el array de productos
-  const producto = productos.find(
-    (p) => p.nombre.toLowerCase() === nombreProducto.toLowerCase()
-  );
-
-  // Verificar si el producto existe y agregarlo al carrito
-  if (producto) {
-    const unidades = parseInt(
-      prompt("Ingrese la cantidad de unidades que desea de este producto")
-    );
-
-    if (isNaN(unidades) || unidades <= 0) {
-      alert("Cantidad inválida. Por favor, ingrese un número válido.");
-      return;
-    }
-
-    const precioTotalUnidades = producto.precio * unidades;
-
-    // Crear el objeto de compra para el carrito
-    const itemCarrito = {
-      nombre: producto.nombre,
-      unidades: unidades,
-      precioUnitario: producto.precio,
-      precioTotal: precioTotalUnidades,
-    };
-
-    // Agregar el objeto al carrito
-    carrito.push(itemCarrito);
-
-    console.log(carrito);
-
-    alert(`${producto.nombre} x ${unidades} ha sido agregado al carrito.`);
-
-    const seguirComprando = prompt(
-      "Para seguir agregando productos al carrito ingrese 1, de lo contrario marque cualquier tecla"
-    );
-
-    if (seguirComprando == 1) {
-      agregarProductosAlCarrito(productos);
+function crearCardsProductos(productos) {
+  let contenedor = document.getElementById("containerCards");
+  productos.forEach((producto) => {
+    let mensaje = producto.stock;
+    if (producto.stock <= 5) {
+      mensaje = "Quedan pocas unidades";
     } else {
-      // Calcular el total de la compra
-      const totalCompra = carrito.reduce(
-        (acc, item) => acc + item.precioTotal,
-        0
-      );
-
-      // Resumen de la compra
-      let resumenCompra = "Resumen de tu compra:\n\n";
-      carrito.forEach((item, index) => {
-        resumenCompra += `${index + 1}. ${item.nombre} - Unidades: ${
-          item.unidades
-        } - Precio Unitario: $${item.precioUnitario} - Precio Total: $${
-          item.precioTotal
-        }\n`;
-      });
-
-      resumenCompra += `\nTotal de la compra: $${totalCompra}`;
-
-      // Mostrar el resumen al usuario
-      alert(resumenCompra);
-
-      // Mostrar agradecimiento por la compra
-      alert(`Gracias por tu compra!`);
+      mensaje = `${producto.stock} unidades diponibles`;
     }
-  } else {
-    alert("Producto no encontrado.");
-  }
-};
+    let cardProducto = document.createElement("article");
+    cardProducto.className = "card";
 
-agregarProductosAlCarrito(productos);
+    cardProducto.innerHTML += `
+      <img class="card-img" src="${producto.rutaImagen}" alt=${producto.tipo}"
+      />
+      <div class="card-detail">
+        <span class="card-detail-name">${producto.nombre}</span>
+        <span class="card-detail-price">${producto.precio}</span>
+        <span class="card-detail-stock">${mensaje}</span>
+      </div>
+      <button id="${producto.id}" class="card-button">Agregar al carrito</button>
+    `;
+    contenedor.appendChild(cardProducto);
+
+    let botonAgregarAlCarrito = document.getElementById(producto.id);
+    botonAgregarAlCarrito.addEventListener("click", agregarProductoAlCarrito);
+  });
+}
+
+function agregarProductoAlCarrito(event) {
+  console.log(event.target);
+}

@@ -1,12 +1,509 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Entrega JavaScript</title>
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
+    <header>
+      <nav>
+        <a href="">
+          <img class="logo" src="./img/logo/logo.png" alt="logo" />
+        </a>
+        <div class="wrap-categories-and-cart">
+          <ul>
+            <li><a class="category" href="">Collares</a></li>
+            <li><a class="category" href="">Aros</a></li>
+            <li><a class="category" href="">Anillos</a></li>
+            <li><a class="category" href="">Pulceras</a></li>
+          </ul>
+          <a class="cart" href="">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+              style="width: 30px"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+              ></path>
+            </svg>
+          </a>
+        </div>
+      </nav>
+      <section>
+        <!--añadir un carousel boostrap-->
+        <img src="img/fondos/img1.jpg" alt="joyas decorativas" />
+      </section>
+    </header>
+    <main>
+      <h1>Collares</h1>
+      <div class="main-top">
+        <div class="main-container-buttons main-container-buttons--colors">
+          <button>Dorados</button>
+          <button>Plateados</button>
+        </div>
+
+        <div class="main-container-buttons">
+          <button id="mayorAMenor">Mostrar precios de mayor a menor</button>
+          <button id="menorAMayor">Mostrar precios de menor a mayor</button>
+        </div>
+      </div>
+
+      <div id="containerCards" class="container-cards"></div>
+      <div class="carrito">
+        <h2>Carrito</h2>
+        <div class="carrito-close">
+          <svg width="40" height="40" viewbox="0 0 40 40">
+            <path
+              d="M 10,10 L 30,30 M 30,10 L 10,30"
+              stroke="black"
+              stroke-width="4"
+            />
+          </svg>
+        </div>
+        <div class="carrito-items">
+          <div class="carrito-item">
+            <div class="carrito-item-left">
+              <img
+                class="carrito-item-img"
+                src="./img/anillos/dorados/img1.jpg"
+                alt="nombre:Anillo Sol Dorado"
+              />
+
+              <p class="carrito-item-description">
+                nombre: "Anillo Sol Dorado", color: "dorado"
+              </p>
+
+              <div class="carrito-quantity-selector">
+                <button
+                  class="carrito-quantity-selector-decrease"
+                  aria-label="Disminuir cantidad"
+                >
+                  -
+                </button>
+                <input
+                  class="carrito-quantity-selector-input"
+                  type="number"
+                  value="1"
+                  min="1"
+                  aria-label="Cantidad de productos"
+                />
+                <button
+                  class="carrito-quantity-selector-increase"
+                  aria-label="Aumentar cantidad"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <span class="carrito-trash-icon">
+              <svg
+                width="128"
+                height="128"
+                viewBox="0 0 128 128"
+                aria-labelledby="title description"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title id="title">Trash Icon</title>
+                <desc id="description">This is a trash icon</desc>
+
+                <rect
+                  x="32"
+                  y="40"
+                  width="64"
+                  height="76"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  rx="1"
+                  ry="1"
+                />
+                <polygon
+                  points="28,24 100,24 104,40 24,40"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  stroke-linejoin="round"
+                />
+                <rect
+                  x="56"
+                  y="12"
+                  width="16"
+                  height="12"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  rx="1"
+                  ry="1"
+                />
+                <line
+                  x1="48"
+                  y1="92"
+                  x2="48"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="64"
+                  y1="92"
+                  x2="64"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="80"
+                  y1="92"
+                  x2="80"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+          </div>
+          <div class="carrito-item">
+            <div class="carrito-item-left">
+              <img
+                class="carrito-item-img"
+                src="./img/anillos/dorados/img1.jpg"
+                alt="nombre:Anillo Sol Dorado"
+              />
+
+              <p class="carrito-item-description">
+                nombre: "Anillo Sol Dorado", color: "dorado"
+              </p>
+
+              <div class="carrito-quantity-selector">
+                <button
+                  class="carrito-quantity-selector-decrease"
+                  aria-label="Disminuir cantidad"
+                >
+                  -
+                </button>
+                <input
+                  class="carrito-quantity-selector-input"
+                  type="number"
+                  value="1"
+                  min="1"
+                  aria-label="Cantidad de productos"
+                />
+                <button
+                  class="carrito-quantity-selector-increase"
+                  aria-label="Aumentar cantidad"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <span class="carrito-trash-icon">
+              <svg
+                width="128"
+                height="128"
+                viewBox="0 0 128 128"
+                aria-labelledby="title description"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title id="title">Trash Icon</title>
+                <desc id="description">This is a trash icon</desc>
+
+                <rect
+                  x="32"
+                  y="40"
+                  width="64"
+                  height="76"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  rx="1"
+                  ry="1"
+                />
+                <polygon
+                  points="28,24 100,24 104,40 24,40"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  stroke-linejoin="round"
+                />
+                <rect
+                  x="56"
+                  y="12"
+                  width="16"
+                  height="12"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  rx="1"
+                  ry="1"
+                />
+                <line
+                  x1="48"
+                  y1="92"
+                  x2="48"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="64"
+                  y1="92"
+                  x2="64"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="80"
+                  y1="92"
+                  x2="80"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+          </div>
+          <div class="carrito-item">
+            <div class="carrito-item-left">
+              <img
+                class="carrito-item-img"
+                src="./img/anillos/dorados/img1.jpg"
+                alt="nombre:Anillo Sol Dorado"
+              />
+
+              <p class="carrito-item-description">
+                nombre: "Anillo Sol Dorado", color: "dorado"
+              </p>
+
+              <div class="carrito-quantity-selector">
+                <button
+                  class="carrito-quantity-selector-decrease"
+                  aria-label="Disminuir cantidad"
+                >
+                  -
+                </button>
+                <input
+                  class="carrito-quantity-selector-input"
+                  type="number"
+                  value="1"
+                  min="1"
+                  aria-label="Cantidad de productos"
+                />
+                <button
+                  class="carrito-quantity-selector-increase"
+                  aria-label="Aumentar cantidad"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <span class="carrito-trash-icon">
+              <svg
+                width="128"
+                height="128"
+                viewBox="0 0 128 128"
+                aria-labelledby="title description"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title id="title">Trash Icon</title>
+                <desc id="description">This is a trash icon</desc>
+
+                <rect
+                  x="32"
+                  y="40"
+                  width="64"
+                  height="76"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  rx="1"
+                  ry="1"
+                />
+                <polygon
+                  points="28,24 100,24 104,40 24,40"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  stroke-linejoin="round"
+                />
+                <rect
+                  x="56"
+                  y="12"
+                  width="16"
+                  height="12"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  rx="1"
+                  ry="1"
+                />
+                <line
+                  x1="48"
+                  y1="92"
+                  x2="48"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="64"
+                  y1="92"
+                  x2="64"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="80"
+                  y1="92"
+                  x2="80"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+          </div>
+          <div class="carrito-item">
+            <div class="carrito-item-left">
+              <img
+                class="carrito-item-img"
+                src="./img/anillos/dorados/img1.jpg"
+                alt="nombre:Anillo Sol Dorado"
+              />
+
+              <p class="carrito-item-description">
+                nombre: "Anillo Sol Dorado", color: "dorado"
+              </p>
+
+              <div class="carrito-quantity-selector">
+                <button
+                  class="carrito-quantity-selector-decrease"
+                  aria-label="Disminuir cantidad"
+                >
+                  -
+                </button>
+                <input
+                  class="carrito-quantity-selector-input"
+                  type="number"
+                  value="1"
+                  min="1"
+                  aria-label="Cantidad de productos"
+                />
+                <button
+                  class="carrito-quantity-selector-increase"
+                  aria-label="Aumentar cantidad"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <span class="carrito-trash-icon">
+              <svg
+                width="128"
+                height="128"
+                viewBox="0 0 128 128"
+                aria-labelledby="title description"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title id="title">Trash Icon</title>
+                <desc id="description">This is a trash icon</desc>
+
+                <rect
+                  x="32"
+                  y="40"
+                  width="64"
+                  height="76"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  rx="1"
+                  ry="1"
+                />
+                <polygon
+                  points="28,24 100,24 104,40 24,40"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  stroke-linejoin="round"
+                />
+                <rect
+                  x="56"
+                  y="12"
+                  width="16"
+                  height="12"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  fill="transparent"
+                  rx="1"
+                  ry="1"
+                />
+                <line
+                  x1="48"
+                  y1="92"
+                  x2="48"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="64"
+                  y1="92"
+                  x2="64"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="80"
+                  y1="92"
+                  x2="80"
+                  y2="68"
+                  stroke="#25313C"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>
+        Copyright © 2024 Anfititre. Todos los derechos reservados. El uso de
+        este sitio web implica la aceptación de los Términos y Condiciones y de
+        las Políticas de Privacidad de Anfititre. Las fotos son a modo
+        ilustrativo. La venta de cualquiera de los productos publicados está
+        sujeta a la verificación de stock. Precios sujeto a cambios sin previo
+        aviso.
+      </p>
+    </footer>
     <script src="./js/main.js"></script>
   </body>
 </html>
