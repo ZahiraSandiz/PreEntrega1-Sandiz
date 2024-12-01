@@ -299,6 +299,10 @@ footer {
   width: 78px;
 }
 
+.carrito-subtotal {
+  font-weight: bold;
+}
+
 .carrito-trash-icon {
   cursor: pointer;
 }

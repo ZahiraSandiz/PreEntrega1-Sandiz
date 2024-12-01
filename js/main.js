@@ -563,6 +563,7 @@ function renderizarCarrito(carrito) {
   carrito.forEach((producto) => {
     let carritoItem = document.createElement("div");
     carritoItem.className = "carrito-item";
+    let subtotalProducto = producto.precioUnitario * producto.unidades;
 
     carritoItem.innerHTML = `
       <div class="carrito-item-left">
@@ -596,6 +597,9 @@ function renderizarCarrito(carrito) {
           </button>
         </div>
       </div>
+      <div class="carrito-subtotal">${subtotalProducto}
+      </div>
+
       <span class="carrito-trash-icon">
         <svg
           width="128"
