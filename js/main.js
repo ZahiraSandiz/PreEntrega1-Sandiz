@@ -519,6 +519,16 @@ function funcionPrincipal() {
   botonMayorAMenor.addEventListener("click", () =>
     ordenarDeMayorAMenor(productos)
   );
+
+  let botonPlateado = document.getElementById("color-plateado");
+  botonPlateado.addEventListener("click", () =>
+    filtrarPorColor(productos, "plateados")
+  );
+
+  let botonDorado = document.getElementById("color-dorado");
+  botonDorado.addEventListener("click", () =>
+    filtrarPorColor(productos, "dorados")
+  );
 }
 
 funcionPrincipal();
@@ -546,6 +556,13 @@ function crearCardsProductos(productos) {
     `;
     contenedor.appendChild(cardProducto);
   });
+}
+
+function filtrarPorColor(productos, color) {
+  const productosFiltrados = productos.filter(
+    (producto) => producto.color === color
+  );
+  crearCardsProductos(productosFiltrados, carrito);
 }
 
 function ordenarDeMenorAMayor(productos) {
