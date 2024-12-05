@@ -506,21 +506,19 @@ function funcionPrincipal() {
 
   let botonCarrito = document.getElementById("boton-carrito");
   botonCarrito.addEventListener("click", verOcultarCarrito);
+
+  let cerrarCarrito = document.getElementById("cerrar-carrito");
+  cerrarCarrito.addEventListener("click", verOcultarCarrito);
 }
 funcionPrincipal();
 
 function verOcultarCarrito() {
-  const botonCarrito = document.getElementById("boton-carrito");
   const carrito = document.getElementById("carrito");
   const cerrarCarrito = document.getElementById("cerrar-carrito");
 
-  botonCarrito.addEventListener("click", () => {
-    carrito.classList.remove("oculto");
-  });
-
-  cerrarCarrito.addEventListener("click", () => {
-    carrito.classList.add("oculto");
-  });
+  // Alternar la clase "oculto" para mostrar/ocultar el carrito
+  carrito.classList.toggle("oculto");
+  cerrarCarrito.classList.toggle("oculto");
 }
 
 function crearCardsProductos(productos) {
@@ -595,9 +593,7 @@ function renderizarCarrito(carrito) {
           <button
             class="carrito-quantity-selector-decrease"
             aria-label="Disminuir cantidad"
-          >
-            -
-          </button>
+          >-</button>
           <input
             class="carrito-quantity-selector-input"
             type="number"
@@ -615,7 +611,6 @@ function renderizarCarrito(carrito) {
       </div>
       <div class="carrito-subtotal">${subtotalProducto}
       </div>
-
       <span class="carrito-trash-icon">
         <svg
           width="128"

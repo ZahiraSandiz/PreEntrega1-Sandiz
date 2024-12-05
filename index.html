@@ -13,12 +13,27 @@
         <a href="">
           <img class="logo" src="./img/logo/logo.png" alt="logo" />
         </a>
+
         <div class="wrap-categories-and-cart">
           <ul>
-            <li><a class="category" href="">Collares</a></li>
-            <li><a class="category" href="">Aros</a></li>
-            <li><a class="category" href="">Anillos</a></li>
-            <li><a class="category" href="">Pulceras</a></li>
+            <li>
+              <a class="category-filter" data-category="collares" href=""
+                >Collares</a
+              >
+            </li>
+            <li>
+              <a class="category-filter" data-category="aritos" href="">Aros</a>
+            </li>
+            <li>
+              <a class="category-filter" data-category="anillos" href=""
+                >Anillos</a
+              >
+            </li>
+            <li>
+              <a class="category-filter" data-category="Pulceras" href=""
+                >Pulceras</a
+              >
+            </li>
           </ul>
           <button id="boton-carrito" class="cart" href="">
             <svg
@@ -39,22 +54,24 @@
           </button>
         </div>
       </nav>
+
+      <div class="popup" id="cart-popup">El producto se añadió al carrito</div>
       <section>
-        <!--añadir un carousel boostrap-->
         <img src="img/fondos/img1.jpg" alt="joyas decorativas" />
       </section>
     </header>
     <main>
       <h1>Collares</h1>
+
       <div class="main-top">
         <div class="main-container-buttons main-container-buttons--colors">
-          <button>Dorados</button>
-          <button>Plateados</button>
+          <button class="color-filter" data-color="dorado">Dorados</button>
+          <button class="color-filter" data-color="plateado">Plateados</button>
         </div>
 
         <div class="main-container-buttons">
-          <button id="mayorAMenor">Mostrar precios de mayor a menor</button>
-          <button id="menorAMayor">Mostrar precios de menor a mayor</button>
+          <button id="menorAMayor">Precio: Menor a mayor</button>
+          <button id="mayorAMenor">Precio: Mayor a menor</button>
         </div>
       </div>
 
@@ -73,6 +90,7 @@
         <div id="carrito-items" class="carrito-items"></div>
       </div>
     </main>
+
     <footer>
       <p>
         Copyright © 2024 Anfititre. Todos los derechos reservados. El uso de
