@@ -207,6 +207,7 @@ footer {
 /* Carrito */
 
 .carrito {
+  display: none;
   background-color: rgb(255, 255, 255);
   position: fixed;
   top: 0;
@@ -214,7 +215,6 @@ footer {
   right: 0;
   /* height: 100vh; */
   height: 500px;
-
   padding: 70px;
 }
 
@@ -313,4 +313,12 @@ footer {
 }
 .carrito-trash-icon svg:active {
   height: 30px;
+}
+
+.carrito.oculto {
+  display: none; /* Clase para ocultar el carrito */
+}
+
+.carrito:not(.oculto) {
+  display: block; /* Clase para mostrar el carrito */
 }

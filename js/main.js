@@ -503,8 +503,25 @@ function funcionPrincipal() {
       agregarProductoAlCarrito(e, productos, carrito)
     );
   }
+
+  let botonCarrito = document.getElementById("boton-carrito");
+  botonCarrito.addEventListener("click", verOcultarCarrito);
 }
 funcionPrincipal();
+
+function verOcultarCarrito() {
+  const botonCarrito = document.getElementById("boton-carrito");
+  const carrito = document.getElementById("carrito");
+  const cerrarCarrito = document.getElementById("cerrar-carrito");
+
+  botonCarrito.addEventListener("click", () => {
+    carrito.classList.remove("oculto");
+  });
+
+  cerrarCarrito.addEventListener("click", () => {
+    carrito.classList.add("oculto");
+  });
+}
 
 function crearCardsProductos(productos) {
   let contenedor = document.getElementById("containerCards");
@@ -553,7 +570,6 @@ function agregarProductoAlCarrito(event, productos, carrito) {
       carrito[indiceProductoEnCarrito].unidades;
   }
 
-  console.log(carrito);
   renderizarCarrito(carrito);
 }
 
