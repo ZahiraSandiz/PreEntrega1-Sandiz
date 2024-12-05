@@ -568,6 +568,17 @@ function agregarProductoAlCarrito(event, productos, carrito) {
       carrito[indiceProductoEnCarrito].unidades;
   }
 
+  function mostrarPopup() {
+    const popup = document.getElementById("popup");
+    popup.classList.add("mostrar");
+
+    setTimeout(() => {
+      popup.classList.remove("mostrar");
+    }, 2000);
+  }
+
+  mostrarPopup();
+
   renderizarCarrito(carrito);
 }
 

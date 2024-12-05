@@ -123,7 +123,31 @@ header section img {
   border-radius: 4px;
   color: #0b8452;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  transition: all 0.3 ease;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  z-index: 1000;
+}
+
+.popup.mostrar {
+  opacity: 1;
+  transform: translateY(0);
+  animation: desaparecer 2s forwards;
+}
+
+@keyframes desaparecer {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 }
 
 main {
@@ -328,9 +352,9 @@ footer {
 }
 
 .carrito.oculto {
-  display: none; /* Clase para ocultar el carrito */
+  display: none;
 }
 
 .carrito:not(.oculto) {
-  display: block; /* Clase para mostrar el carrito */
+  display: block;
 }
