@@ -509,20 +509,23 @@ function funcionPrincipal() {
 
   let cerrarCarrito = document.getElementById("cerrar-carrito");
   cerrarCarrito.addEventListener("click", verOcultarCarrito);
+
+  let botonMenorAMayor = document.getElementById("menorAMayor");
+  botonMenorAMayor.addEventListener("click", () =>
+    ordenarDeMenorAMayor(productos)
+  );
+
+  let botonMayorAMenor = document.getElementById("mayorAMenor");
+  botonMayorAMenor.addEventListener("click", () =>
+    ordenarDeMayorAMenor(productos)
+  );
 }
+
 funcionPrincipal();
-
-function verOcultarCarrito() {
-  const carrito = document.getElementById("carrito");
-  const cerrarCarrito = document.getElementById("cerrar-carrito");
-
-  // Alternar la clase "oculto" para mostrar/ocultar el carrito
-  carrito.classList.toggle("oculto");
-  cerrarCarrito.classList.toggle("oculto");
-}
 
 function crearCardsProductos(productos) {
   let contenedor = document.getElementById("containerCards");
+  contenedor.innerHTML = "";
   productos.forEach((producto) => {
     let mensaje =
       producto.stock <= 5
@@ -543,6 +546,26 @@ function crearCardsProductos(productos) {
     `;
     contenedor.appendChild(cardProducto);
   });
+}
+
+function ordenarDeMenorAMayor(productos) {
+  const productosOrdenados = [...productos].sort((a, b) => a.precio - b.precio);
+  crearCardsProductos(productosOrdenados);
+  reiniciarEventos(productosOrdenados);
+}
+
+function ordenarDeMayorAMenor(productos) {
+  const productosOrdenados = [...productos].sort((a, b) => b.precio - a.precio);
+  crearCardsProductos(productosOrdenados);
+}
+
+function reiniciarEventos(productos) {
+  let botonesAgregarproductos = document.getElementsByClassName("card-button");
+  for (const boton of botonesAgregarproductos) {
+    boton.addEventListener("click", (e) =>
+      agregarProductoAlCarrito(e, productos, carrito)
+    );
+  }
 }
 
 function agregarProductoAlCarrito(event, productos, carrito) {
@@ -580,6 +603,14 @@ function agregarProductoAlCarrito(event, productos, carrito) {
   mostrarPopup();
 
   renderizarCarrito(carrito);
+}
+
+function verOcultarCarrito() {
+  const carrito = document.getElementById("carrito");
+  const cerrarCarrito = document.getElementById("cerrar-carrito");
+
+  carrito.classList.toggle("oculto");
+  cerrarCarrito.classList.toggle("oculto");
 }
 
 function renderizarCarrito(carrito) {
