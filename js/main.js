@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function () {
+  funcionPrincipal();
+});
+
 function funcionPrincipal() {
   const productos = [
     // Anillos dorados
@@ -493,16 +497,8 @@ function funcionPrincipal() {
       stock: 7,
     },
   ];
-  let carrito = [];
+  const carrito = [];
   crearCardsProductos(productos, carrito);
-
-  let botonesAgregarproductos = document.getElementsByClassName("card-button");
-
-  for (const boton of botonesAgregarproductos) {
-    boton.addEventListener("click", (e) =>
-      agregarProductoAlCarrito(e, productos, carrito)
-    );
-  }
 
   let botonCarrito = document.getElementById("boton-carrito");
   botonCarrito.addEventListener("click", verOcultarCarrito);
@@ -529,61 +525,31 @@ function funcionPrincipal() {
   botonDorado.addEventListener("click", () =>
     filtrarPorColor(productos, "dorados")
   );
-}
 
-funcionPrincipal();
-
-function crearCardsProductos(productos) {
-  let contenedor = document.getElementById("containerCards");
-  contenedor.innerHTML = "";
-  productos.forEach((producto) => {
-    let mensaje =
-      producto.stock <= 5
-        ? "Quedan pocas unidades"
-        : `${producto.stock} unidades disponibles`;
-
-    let cardProducto = document.createElement("article");
-    cardProducto.className = "card";
-
-    cardProducto.innerHTML += `
-      <img class="card-img" src="${producto.rutaImagen}" alt="${producto.nombre}" />
-      <div class="card-detail">
-        <span class="card-detail-name">${producto.nombre}</span>
-        <span class="card-detail-price">${producto.precio}</span>
-        <span class="card-detail-stock">${mensaje}</span>
-      </div>
-      <button id="${producto.id}" class="card-button">Agregar al carrito</button>
-    `;
-    contenedor.appendChild(cardProducto);
-  });
-}
-
-function filtrarPorColor(productos, color) {
-  const productosFiltrados = productos.filter(
-    (producto) => producto.color === color
+  let categoryFilters = Array.from(
+    document.getElementsByClassName("category-filter")
   );
-  crearCardsProductos(productosFiltrados, carrito);
-}
+  categoryFilters.forEach((filter) => {
+    filter.addEventListener("click", (event) => {
+      event.preventDefault();
+      const categoriaSeleccionada = filter.dataset.category.toLowerCase();
+      const productosFiltrados = productos.filter(
+        (producto) => producto.tipo.toLowerCase() === categoriaSeleccionada
+      );
+      crearCardsProductos(productosFiltrados, carrito);
+    });
+  });
 
-function ordenarDeMenorAMayor(productos) {
-  const productosOrdenados = [...productos].sort((a, b) => a.precio - b.precio);
-  crearCardsProductos(productosOrdenados);
-  reiniciarEventos(productosOrdenados);
-}
-
-function ordenarDeMayorAMenor(productos) {
-  const productosOrdenados = [...productos].sort((a, b) => b.precio - a.precio);
-  crearCardsProductos(productosOrdenados);
-}
-
-function reiniciarEventos(productos) {
   let botonesAgregarproductos = document.getElementsByClassName("card-button");
+
   for (const boton of botonesAgregarproductos) {
     boton.addEventListener("click", (e) =>
       agregarProductoAlCarrito(e, productos, carrito)
     );
   }
 }
+
+funcionPrincipal();
 
 function agregarProductoAlCarrito(event, productos, carrito) {
   let id = Number(event.target.id);
@@ -620,6 +586,64 @@ function agregarProductoAlCarrito(event, productos, carrito) {
   mostrarPopup();
 
   renderizarCarrito(carrito);
+}
+
+function crearCardsProductos(productos) {
+  let contenedor = document.getElementById("containerCards");
+  contenedor.innerHTML = "";
+  productos.forEach((producto) => {
+    let mensaje =
+      producto.stock <= 5
+        ? "Quedan pocas unidades"
+        : `${producto.stock} unidades disponibles`;
+
+    let cardProducto = document.createElement("article");
+    cardProducto.className = "card";
+
+    cardProducto.innerHTML += `
+      <img class="card-img" src="${producto.rutaImagen}" alt="${producto.nombre}" />
+      <div class="card-detail">
+        <span class="card-detail-name">${producto.nombre}</span>
+        <span class="card-detail-price">${producto.precio}</span>
+        <span class="card-detail-stock">${mensaje}</span>
+      </div>
+      <button id="${producto.id}" class="card-button">Agregar al carrito</button>
+    `;
+    contenedor.appendChild(cardProducto);
+  });
+
+  const botonesAgregar = document.querySelectorAll(".card-button");
+  botonesAgregar.forEach((boton) => {
+    boton.addEventListener("click", (e) =>
+      agregarProductoAlCarrito(e, productos, carrito)
+    );
+  });
+}
+
+function filtrarPorColor(productos, color) {
+  const productosFiltrados = productos.filter(
+    (producto) => producto.color === color
+  );
+  crearCardsProductos(productosFiltrados, carrito);
+}
+
+function ordenarDeMenorAMayor(productos) {
+  const productosOrdenados = [...productos].sort((a, b) => a.precio - b.precio);
+  crearCardsProductos(productosOrdenados);
+}
+
+function ordenarDeMayorAMenor(productos) {
+  const productosOrdenados = [...productos].sort((a, b) => b.precio - a.precio);
+  crearCardsProductos(productosOrdenados);
+}
+
+function reiniciarEventos(productos) {
+  let botonesAgregarproductos = document.getElementsByClassName("card-button");
+  for (const boton of botonesAgregarproductos) {
+    boton.addEventListener("click", (e) =>
+      agregarProductoAlCarrito(e, productos, carrito)
+    );
+  }
 }
 
 function verOcultarCarrito() {
