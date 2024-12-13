@@ -12,6 +12,11 @@ body {
   background-color: #f5f5f5;
 }
 
+/* Deshabilitar el scroll de la página de fondo */
+body.no-scroll {
+  overflow: hidden; /* Evita que la página de fondo se desplace */
+}
+
 ul,
 ol {
   list-style: none;
@@ -62,8 +67,9 @@ header nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   background-color: #96695e;
-  padding: 0 80px;
+  padding: 0 40px;
   position: fixed;
   left: 0;
   right: 0;
@@ -71,6 +77,35 @@ header nav {
 
 header nav a .logo {
   width: 150px;
+}
+
+.wrap-search {
+  display: flex;
+  align-items: center;
+}
+
+.wrap-search input {
+  border: solid 1px white;
+  background: none;
+  padding: 10px;
+  width: 300px;
+}
+.wrap-search input:focus-visible {
+  outline: none;
+}
+
+.wrap-search input::placeholder {
+  opacity: 0.5; /* Hacerlo más translúcido */
+  color: white;
+}
+
+.wrap-search button svg {
+  transition: all 0.3s ease;
+  color: #333;
+}
+
+.wrap-search button svg:hover {
+  transform: scale(1.1);
 }
 
 .wrap-categories-and-cart {
@@ -161,6 +196,9 @@ main h1 {
   font-weight: 100;
   color: #222;
 }
+main .wrap-search {
+  display: flex;
+}
 
 main .main-top {
   display: flex;
@@ -246,38 +284,50 @@ footer {
 .carrito {
   display: none;
   background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  overflow-y: auto;
+  z-index: 1000;
   height: 100vh;
   padding: 70px;
 }
 
+.carrito-wrap-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.carrito-wrap-top {
+  font-size: 40px;
+  font-weight: 100;
+}
+
+.carrito-wrap-top h2 {
+  font-weight: 100;
+}
+
 .carrito-close {
-  width: 30px;
-  height: 30px;
+  color: #333;
+  background: white;
   cursor: pointer;
-  position: fixed;
-  top: 70px;
-  right: 70px;
+  padding: 10px;
+  transition: all 0.3s ease;
 }
 
-.carrito-close svg {
-  height: 100%;
-  width: 100%;
-}
-
-.bg-close {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40px' height='40px' viewbox='0 0 40 40'%3E%3Cpath d='M 10,10 L 30,30 M 30,10 L 10,30' stroke='black' stroke-width='4' stroke-linecap='butt' /%3E%3C/svg%3E");
-  background-size: 100%;
+.carrito-close:hover {
+  transform: scale(1.1);
 }
 
 .carrito-items {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin: 100px 0;
 }
 
 .carrito-item {
@@ -351,10 +401,20 @@ footer {
   height: 30px;
 }
 
+.button-checkout {
+  align-self: flex-end;
+  border: solid 1px grey;
+  transition: all 0.3s ease;
+}
+
+.button-checkout:hover {
+  transform: scale(1.1);
+}
+
 .carrito.oculto {
   display: none;
 }
 
 .carrito:not(.oculto) {
-  display: block;
+  display: flex;
 }

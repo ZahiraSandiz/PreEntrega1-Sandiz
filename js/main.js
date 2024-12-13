@@ -497,7 +497,8 @@ function funcionPrincipal() {
       stock: 7,
     },
   ];
-  const carrito = [];
+  let carrito = recuperarCarritoDelStorage();
+  renderizarCarrito(carrito);
   crearCardsProductos(productos, carrito);
 
   let botonCarrito = document.getElementById("boton-carrito");
@@ -544,14 +545,16 @@ function funcionPrincipal() {
 
   for (const boton of botonesAgregarproductos) {
     boton.addEventListener("click", (e) =>
-      agregarProductoAlCarrito(e, productos, carrito)
+      agregarProductoAlCarrito(e, productos)
     );
   }
 }
 
 funcionPrincipal();
 
-function agregarProductoAlCarrito(event, productos, carrito) {
+function agregarProductoAlCarrito(event, productos) {
+  carrito = recuperarCarritoDelStorage();
+
   let id = Number(event.target.id);
   let productoOriginal = productos.find((producto) => producto.id === id);
   let indiceProductoEnCarrito = carrito.findIndex(
@@ -584,7 +587,7 @@ function agregarProductoAlCarrito(event, productos, carrito) {
   }
 
   mostrarPopup();
-
+  guardarEnStorage("carrito", carrito);
   renderizarCarrito(carrito);
 }
 
@@ -652,6 +655,7 @@ function verOcultarCarrito() {
 
   carrito.classList.toggle("oculto");
   cerrarCarrito.classList.toggle("oculto");
+  document.body.classList.toggle("no-scroll"); // Activa/desactiva el scroll de la página
 }
 
 function renderizarCarrito(carrito) {
@@ -766,4 +770,18 @@ function renderizarCarrito(carrito) {
     `;
     contenedorCarrito.appendChild(carritoItem);
   });
+}
+
+function guardarEnStorage(clave, valor) {
+  let valorJson = JSON.stringify(valor);
+  localStorage.setItem(clave, valorJson);
+}
+
+function recuperarCarritoDelStorage() {
+  let valorJson = localStorage.getItem("carrito");
+  let carrito = JSON.parse(valorJson);
+  if (!carrito) {
+    carrito = [];
+  }
+  return carrito;
 }
