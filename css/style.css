@@ -216,6 +216,26 @@ main .container-cards {
   flex-wrap: wrap;
 }
 
+.no-results.oculto {
+  display: none;
+}
+
+.no-results:not(.oculto) {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 100px auto;
+  font-size: 20px;
+  border: solid 1px grey;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+main .no-results p:first-child {
+  font-size: 30px;
+  font-weight: 400;
+}
+
 main div .main-container-buttons {
   display: flex;
   flex-direction: column;

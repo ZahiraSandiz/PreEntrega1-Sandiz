@@ -559,7 +559,16 @@ funcionPrincipal();
 
 function filtrarYrenderizar(e, productos, carrito) {
   let arrayFiltrado = filtrar(e, productos);
-  crearCardsProductos(arrayFiltrado);
+
+  if (arrayFiltrado.length === 0) {
+    let sinResultados = document.getElementById("sin-resultados");
+    sinResultados.classList.remove("oculto");
+  } else {
+    let sinResultados = document.getElementById("sin-resultados");
+    sinResultados.classList.add("oculto");
+  }
+
+  crearCardsProductos(arrayFiltrado, carrito);
 }
 
 function filtrar(e, productos) {
@@ -673,7 +682,7 @@ function verOcultarCarrito() {
 
   carrito.classList.toggle("oculto");
   cerrarCarrito.classList.toggle("oculto");
-  document.body.classList.toggle("no-scroll"); // Activa/desactiva el scroll de la página
+  document.body.classList.toggle("no-scroll");
 }
 
 function renderizarCarrito(carrito) {
