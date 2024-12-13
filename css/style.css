@@ -82,13 +82,17 @@ header nav a .logo {
 .wrap-search {
   display: flex;
   align-items: center;
+  border: solid 1px white;
+  border-radius: 25px;
 }
 
 .wrap-search input {
-  border: solid 1px white;
+  border: none;
   background: none;
-  padding: 10px;
+  padding: 0px 20px;
   width: 300px;
+
+  color: white;
 }
 .wrap-search input:focus-visible {
   outline: none;
