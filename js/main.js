@@ -553,12 +553,23 @@ function funcionPrincipal() {
   inputBuscar.addEventListener("change", (e) =>
     filtrarYrenderizar(e, productos, carrito)
   );
+
+  let botonBuscar = document.getElementById("botonBuscar");
+  botonBuscar.addEventListener("click", (e) =>
+    filtrarYrenderizarConBoton(inputBuscar, productos)
+  );
 }
 
 funcionPrincipal();
 
+function filtrarYrenderizarConBoton(input, productos) {
+  let productosFiltrados = filtrar(input.value, productos);
+  console.log("funciona");
+  crearCardsProductos(productosFiltrados);
+}
+
 function filtrarYrenderizar(e, productos, carrito) {
-  let arrayFiltrado = filtrar(e, productos);
+  let arrayFiltrado = filtrar(e.target.value, productos);
 
   if (arrayFiltrado.length === 0) {
     let sinResultados = document.getElementById("sin-resultados");
@@ -567,14 +578,16 @@ function filtrarYrenderizar(e, productos, carrito) {
     let sinResultados = document.getElementById("sin-resultados");
     sinResultados.classList.add("oculto");
   }
-
   crearCardsProductos(arrayFiltrado, carrito);
 }
 
-function filtrar(e, productos) {
-  const query = e.target.value.toLowerCase();
-  return productos.filter((producto) =>
-    producto.nombre.toLowerCase().includes(query)
+function filtrar(valor, productos) {
+  const query = valor.toLowerCase();
+  return productos.filter(
+    (producto) =>
+      producto.nombre.toLowerCase().includes(query) ||
+      producto.tipo.toLowerCase().includes(query) ||
+      producto.color.toLowerCase().includes(query)
   );
 }
 
