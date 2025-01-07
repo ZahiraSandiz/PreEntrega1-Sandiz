@@ -497,7 +497,9 @@ function funcionPrincipal() {
       stock: 7,
     },
   ];
+
   let carrito = recuperarCarritoDelStorage();
+
   renderizarCarrito(carrito);
   crearCardsProductos(productos, carrito);
 
@@ -530,6 +532,7 @@ function funcionPrincipal() {
   let categoryFilters = Array.from(
     document.getElementsByClassName("category-filter")
   );
+
   categoryFilters.forEach((filter) => {
     filter.addEventListener("click", (event) => {
       event.preventDefault();
@@ -558,26 +561,47 @@ function funcionPrincipal() {
   botonBuscar.addEventListener("click", (e) =>
     filtrarYrenderizarConBoton(inputBuscar, productos)
   );
+
+  let botonFinalizarCompra = document.getElementById("boton-finalizar-compra");
+  botonFinalizarCompra.addEventListener("click", () => finalizarCompra());
 }
 
 funcionPrincipal();
 
+function finalizarCompra() {
+  renderizarCarrito([]);
+  localStorage.removeItem("carrito");
+  localStorage.setItem("carrito", JSON.stringify([]));
+
+  let carrito = document.getElementById("carrito");
+
+  function agradecimientoCompra() {
+    const agradecimiento = document.getElementById("graciasPorTuCompra");
+    const botonVolver = document.getElementById("volverInicio");
+
+    agradecimiento.style.display = "flex";
+
+    botonVolver.addEventListener("click", () => {
+      window.location.href = "./index.html";
+    });
+  }
+
+  agradecimientoCompra();
+}
+
 function filtrarYrenderizarConBoton(input, productos) {
   let productosFiltrados = filtrar(input.value, productos);
-  console.log("funciona");
   crearCardsProductos(productosFiltrados);
 }
 
 function filtrarYrenderizar(e, productos, carrito) {
   let arrayFiltrado = filtrar(e.target.value, productos);
 
-  if (arrayFiltrado.length === 0) {
-    let sinResultados = document.getElementById("sin-resultados");
-    sinResultados.classList.remove("oculto");
-  } else {
-    let sinResultados = document.getElementById("sin-resultados");
-    sinResultados.classList.add("oculto");
-  }
+  let sinResultados = document.getElementById("sin-resultados");
+  arrayFiltrado.length === 0
+    ? sinResultados.classList.remove("oculto")
+    : sinResultados.classList.add("oculto");
+
   crearCardsProductos(arrayFiltrado, carrito);
 }
 
@@ -594,7 +618,7 @@ function filtrar(valor, productos) {
 function agregarProductoAlCarrito(event, productos) {
   carrito = recuperarCarritoDelStorage();
 
-  let id = Number(event.target.id);
+  let id = Number(event.target.id.substring(3));
   let productoOriginal = productos.find((producto) => producto.id === id);
   let indiceProductoEnCarrito = carrito.findIndex(
     (producto) => producto.id === id
@@ -626,7 +650,7 @@ function agregarProductoAlCarrito(event, productos) {
   }
 
   mostrarPopup();
-  guardarEnStorage("carrito", carrito);
+  guardarEnStorage(carrito);
   renderizarCarrito(carrito);
 }
 
@@ -649,7 +673,7 @@ function crearCardsProductos(productos, carrito) {
         <span class="card-detail-price">${producto.precio}</span>
         <span class="card-detail-stock">${mensaje}</span>
       </div>
-      <button id="${producto.id}" class="card-button">Agregar al carrito</button>
+      <button id="agc${producto.id}" class="card-button">Agregar al carrito</button>
     `;
 
     contenedor.appendChild(cardProducto);
@@ -698,12 +722,31 @@ function verOcultarCarrito() {
   document.body.classList.toggle("no-scroll");
 }
 
+function actualizarEstadoCarrito() {
+  const carritoItems = document.getElementById("carrito-items");
+  const mensajeCarritoVacio = document.getElementById("mensajeCarritoVacio");
+  const botonFinalizarCompra = document.getElementById(
+    "boton-finalizar-compra"
+  );
+
+  if (carritoItems.children.length === 0) {
+    mensajeCarritoVacio.style.display = "block";
+    botonFinalizarCompra.style.display = "none";
+  } else {
+    mensajeCarritoVacio.style.display = "none";
+    botonFinalizarCompra.style.display = "block";
+  }
+}
+actualizarEstadoCarrito();
+
 function renderizarCarrito(carrito) {
   let contenedorCarrito = document.getElementById("carrito-items");
   contenedorCarrito.innerHTML = "";
   carrito.forEach((producto) => {
     let carritoItem = document.createElement("div");
     carritoItem.className = "carrito-item";
+    carritoItem.id = "cit" + producto.id;
+
     let subtotalProducto = producto.precioUnitario * producto.unidades;
 
     carritoItem.innerHTML = `
@@ -738,7 +781,7 @@ function renderizarCarrito(carrito) {
       </div>
       <div class="carrito-subtotal">${subtotalProducto}
       </div>
-      <span class="carrito-trash-icon">
+      <button id="eli${producto.id}" class="carrito-trash-icon">
         <svg
           width="128"
           height="128"
@@ -806,22 +849,43 @@ function renderizarCarrito(carrito) {
             stroke-linecap="round"
           />
         </svg>
-      </span>       
+      </button>       
     `;
     contenedorCarrito.appendChild(carritoItem);
+    actualizarEstadoCarrito();
+
+    let botonEliminar = document.getElementById("eli" + producto.id);
+    botonEliminar.addEventListener("click", eliminarProductoDelCarrito);
   });
 }
 
-function guardarEnStorage(clave, valor) {
+function eliminarProductoDelCarrito(e) {
+  // Usar currentTarget para obtener el id del botón
+  let id = Number(e.currentTarget.id.substring(3));
+
+  let carrito = recuperarCarritoDelStorage();
+  let indiceProducto = carrito.findIndex((producto) => producto.id === id);
+
+  if (indiceProducto !== -1) {
+    carrito.splice(indiceProducto, 1);
+  }
+  guardarEnStorage(carrito);
+  renderizarCarrito(carrito);
+  actualizarEstadoCarrito();
+}
+
+function guardarEnStorage(valor) {
   let valorJson = JSON.stringify(valor);
-  localStorage.setItem(clave, valorJson);
+  localStorage.setItem("carrito", valorJson);
 }
 
 function recuperarCarritoDelStorage() {
-  let valorJson = localStorage.getItem("carrito");
-  let carrito = JSON.parse(valorJson);
-  if (!carrito) {
-    carrito = [];
-  }
-  return carrito;
+  // let valorJson = localStorage.getItem("carrito");
+  // let carrito = JSON.parse(valorJson);
+  // if (!carrito) {
+  //  carrito = [];
+  // }
+  // return carrito;
+
+  return JSON.parse(localStorage.getItem("carrito")) ?? [];
 }

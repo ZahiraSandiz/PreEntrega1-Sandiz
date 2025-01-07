@@ -354,6 +354,15 @@ footer {
   gap: 20px;
 }
 
+.carrito-message-empty {
+  margin: auto;
+  border: solid, 1px, grey;
+  padding: 30px 60px;
+  font-size: 28px;
+  font-weight: 100;
+  color: grey;
+}
+
 .carrito-item {
   display: flex;
   align-items: center;
@@ -441,4 +450,21 @@ footer {
 
 .carrito:not(.oculto) {
   display: flex;
+}
+
+.thank-you-purchase {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  font-weight: 100;
+  font-size: 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: rgb(255, 255, 255);
 }
