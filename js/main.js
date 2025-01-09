@@ -761,6 +761,7 @@ function renderizarCarrito(carrito) {
         </p>
         <div class="carrito-quantity-selector">
           <button
+            id=run${producto.id}
             class="carrito-quantity-selector-decrease"
             aria-label="Disminuir cantidad"
           >-</button>
@@ -772,6 +773,7 @@ function renderizarCarrito(carrito) {
             aria-label="Cantidad de productos"
           />
           <button
+            id=sun${producto.id}
             class="carrito-quantity-selector-increase"
             aria-label="Aumentar cantidad"
           >
@@ -856,21 +858,80 @@ function renderizarCarrito(carrito) {
 
     let botonEliminar = document.getElementById("eli" + producto.id);
     botonEliminar.addEventListener("click", eliminarProductoDelCarrito);
+
+    let botonRestarUnidad = document.getElementById("run" + producto.id);
+    botonRestarUnidad.addEventListener("click", restarUnidadProdCarrito);
+
+    let botonSumarUnidad = document.getElementById("sun" + producto.id);
+    botonSumarUnidad.addEventListener("click", sumarUnidadProdCarrito);
   });
 }
 
-function eliminarProductoDelCarrito(e) {
-  // Usar currentTarget para obtener el id del botón
-  let id = Number(e.currentTarget.id.substring(3));
+function sumarUnidadProdCarrito(e) {
+  let id = Number(e.target.id.substring(3));
 
   let carrito = recuperarCarritoDelStorage();
   let indiceProducto = carrito.findIndex((producto) => producto.id === id);
 
   if (indiceProducto !== -1) {
-    carrito.splice(indiceProducto, 1);
+    carrito[indiceProducto].unidades++;
+    carrito[indiceProducto].subtotal =
+      carrito[indiceProducto].precioUnitario * carrito[indiceProducto].unidades;
+    guardarEnStorage(carrito);
+
+    // e.target.nextElementSibling.innerText = carrito[indiceProducto].unidades;
+    e.target.parentElement.children[1].innerText =
+      carrito[indiceProducto].unidades;
   }
-  guardarEnStorage(carrito);
   renderizarCarrito(carrito);
+}
+
+function restarUnidadProdCarrito(e) {
+  let id = Number(e.target.id.substring(3));
+
+  let carrito = recuperarCarritoDelStorage();
+  let indiceProducto = carrito.findIndex((producto) => producto.id === id);
+
+  if (indiceProducto !== -1) {
+    carrito[indiceProducto].unidades--;
+
+    if (carrito[indiceProducto].unidades === 0) {
+      carrito.splice(indiceProducto, 1);
+      guardarEnStorage(carrito);
+
+      let filaProducto = e.target.closest(".carrito-item");
+      if (filaProducto) filaProducto.remove();
+    } else {
+      carrito[indiceProducto].subtotal =
+        carrito[indiceProducto].precioUnitario *
+        carrito[indiceProducto].unidades;
+
+      guardarEnStorage(carrito);
+      e.target.parentElement.children[1].value =
+        carrito[indiceProducto].unidades;
+      e.target
+        .closest(".carrito-item")
+        .querySelector(".carrito-subtotal").innerText =
+        carrito[indiceProducto].subtotal;
+    }
+  }
+
+  actualizarEstadoCarrito();
+}
+
+function eliminarProductoDelCarrito(e) {
+  // Usar currentTarget para obtener el id del botón
+  let id = Number(e.currentTarget.id.substring(3));
+  let carrito = recuperarCarritoDelStorage();
+  let indiceProducto = carrito.findIndex((producto) => producto.id === id);
+
+  if (indiceProducto !== -1) {
+    carrito.splice(indiceProducto, 1);
+    let tarjetaCarrito = document.getElementById("cit" + id);
+    tarjetaCarrito.remove();
+  }
+
+  guardarEnStorage(carrito);
   actualizarEstadoCarrito();
 }
 
@@ -880,12 +941,5 @@ function guardarEnStorage(valor) {
 }
 
 function recuperarCarritoDelStorage() {
-  // let valorJson = localStorage.getItem("carrito");
-  // let carrito = JSON.parse(valorJson);
-  // if (!carrito) {
-  //  carrito = [];
-  // }
-  // return carrito;
-
   return JSON.parse(localStorage.getItem("carrito")) ?? [];
 }
