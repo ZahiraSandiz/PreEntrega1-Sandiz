@@ -737,13 +737,16 @@ function actualizarEstadoCarrito() {
   const botonFinalizarCompra = document.getElementById(
     "boton-finalizar-compra"
   );
+  const total = document.getElementById("total");
 
   if (carritoItems.children.length === 0) {
     mensajeCarritoVacio.style.display = "block";
     botonFinalizarCompra.style.display = "none";
+    total.style.display = "none";
   } else {
     mensajeCarritoVacio.style.display = "none";
     botonFinalizarCompra.style.display = "block";
+    total.style.display = "block";
   }
 }
 actualizarEstadoCarrito();
@@ -934,7 +937,6 @@ function restarUnidadProdCarrito(e) {
 }
 
 function eliminarProductoDelCarrito(e) {
-  // Usar currentTarget para obtener el id del botón
   let id = Number(e.currentTarget.id.substring(3));
   let carrito = recuperarCarritoDelStorage();
   let indiceProducto = carrito.findIndex((producto) => producto.id === id);
