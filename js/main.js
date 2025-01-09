@@ -568,6 +568,15 @@ function funcionPrincipal() {
 
 funcionPrincipal();
 
+function calcularTotal(productos) {
+  return productos.reduce((acum, producto) => acum + producto.subtotal, 0);
+}
+
+function actualizarTotal(total) {
+  let elementoTotal = document.getElementById("total");
+  elementoTotal.innerHTML = "$" + total;
+}
+
 function finalizarCompra() {
   renderizarCarrito([]);
   localStorage.removeItem("carrito");
@@ -865,6 +874,9 @@ function renderizarCarrito(carrito) {
     let botonSumarUnidad = document.getElementById("sun" + producto.id);
     botonSumarUnidad.addEventListener("click", sumarUnidadProdCarrito);
   });
+
+  const total = calcularTotal(carrito);
+  actualizarTotal(total);
 }
 
 function sumarUnidadProdCarrito(e) {
@@ -879,11 +891,10 @@ function sumarUnidadProdCarrito(e) {
       carrito[indiceProducto].precioUnitario * carrito[indiceProducto].unidades;
     guardarEnStorage(carrito);
 
-    // e.target.nextElementSibling.innerText = carrito[indiceProducto].unidades;
     e.target.parentElement.children[1].innerText =
       carrito[indiceProducto].unidades;
+    renderizarCarrito(carrito);
   }
-  renderizarCarrito(carrito);
 }
 
 function restarUnidadProdCarrito(e) {
@@ -907,6 +918,7 @@ function restarUnidadProdCarrito(e) {
         carrito[indiceProducto].unidades;
 
       guardarEnStorage(carrito);
+
       e.target.parentElement.children[1].value =
         carrito[indiceProducto].unidades;
       e.target
@@ -915,6 +927,8 @@ function restarUnidadProdCarrito(e) {
         carrito[indiceProducto].subtotal;
     }
   }
+  const total = calcularTotal(carrito);
+  actualizarTotal(total);
 
   actualizarEstadoCarrito();
 }
@@ -930,6 +944,9 @@ function eliminarProductoDelCarrito(e) {
     let tarjetaCarrito = document.getElementById("cit" + id);
     tarjetaCarrito.remove();
   }
+
+  const total = calcularTotal(carrito);
+  actualizarTotal(total);
 
   guardarEnStorage(carrito);
   actualizarEstadoCarrito();
