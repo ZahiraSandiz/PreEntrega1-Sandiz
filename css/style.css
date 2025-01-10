@@ -223,16 +223,18 @@ main .container-cards {
 .no-results:not(.oculto) {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  gap: 100px;
   margin: 100px auto;
   font-size: 20px;
   border: solid 1px grey;
   border-radius: 6px;
-  padding: 20px;
+  padding: 80px;
+  font-size: 30px;
 }
 
 main .no-results p:first-child {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 400;
 }
 
@@ -361,6 +363,11 @@ footer {
   font-size: 28px;
   font-weight: 100;
   color: grey;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 6px;
 }
 
 .carrito-item {
@@ -467,6 +474,19 @@ footer {
   bottom: 0;
   z-index: 1000;
   background-color: rgb(255, 255, 255);
+  padding: 100px;
+}
+
+.thank-you-purchase svg {
+  width: 300px;
+}
+
+.thank-you-purchase button {
+  transition: all 0.3s ease;
+}
+
+.thank-you-purchase button:hover {
+  transform: scale(1.1);
 }
 
 .total {

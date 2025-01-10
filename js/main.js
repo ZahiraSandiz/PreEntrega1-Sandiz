@@ -740,7 +740,7 @@ function actualizarEstadoCarrito() {
   const total = document.getElementById("total");
 
   if (carritoItems.children.length === 0) {
-    mensajeCarritoVacio.style.display = "block";
+    mensajeCarritoVacio.style.display = "flex";
     botonFinalizarCompra.style.display = "none";
     total.style.display = "none";
   } else {
