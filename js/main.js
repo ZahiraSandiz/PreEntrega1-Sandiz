@@ -578,24 +578,33 @@ function actualizarTotal(total) {
 }
 
 function finalizarCompra() {
-  renderizarCarrito([]);
-  localStorage.removeItem("carrito");
-  localStorage.setItem("carrito", JSON.stringify([]));
+  Swal.fire({
+    title: "¿Quieres finalizar la compra?",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, comprar",
+    cancelButtonText: "No, aún no",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      renderizarCarrito([]);
+      localStorage.removeItem("carrito");
+      localStorage.setItem("carrito", JSON.stringify([]));
 
-  let carrito = document.getElementById("carrito");
+      let carrito = document.getElementById("carrito");
+      function agradecimientoCompra() {
+        const agradecimiento = document.getElementById("graciasPorTuCompra");
+        const botonVolver = document.getElementById("volverInicio");
 
-  function agradecimientoCompra() {
-    const agradecimiento = document.getElementById("graciasPorTuCompra");
-    const botonVolver = document.getElementById("volverInicio");
+        agradecimiento.style.display = "flex";
 
-    agradecimiento.style.display = "flex";
-
-    botonVolver.addEventListener("click", () => {
-      window.location.href = "./index.html";
-    });
-  }
-
-  agradecimientoCompra();
+        botonVolver.addEventListener("click", () => {
+          window.location.href = "./index.html";
+        });
+      }
+      agradecimientoCompra();
+    }
+  });
 }
 
 function filtrarYrenderizarConBoton(input, productos) {
