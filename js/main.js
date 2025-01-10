@@ -941,17 +941,32 @@ function eliminarProductoDelCarrito(e) {
   let carrito = recuperarCarritoDelStorage();
   let indiceProducto = carrito.findIndex((producto) => producto.id === id);
 
-  if (indiceProducto !== -1) {
-    carrito.splice(indiceProducto, 1);
-    let tarjetaCarrito = document.getElementById("cit" + id);
-    tarjetaCarrito.remove();
-  }
-
-  const total = calcularTotal(carrito);
-  actualizarTotal(total);
-
-  guardarEnStorage(carrito);
-  actualizarEstadoCarrito();
+  Swal.fire({
+    title: "¿Estás seguro de eliminar este producto del carrito?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, eliminar",
+    cancelButtonText: "No, cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Hecho",
+        text: "El producto ha sido eliminado del carrito",
+        icon: "success",
+      });
+      if (indiceProducto !== -1) {
+        carrito.splice(indiceProducto, 1);
+        let tarjetaCarrito = document.getElementById("cit" + id);
+        tarjetaCarrito.remove();
+      }
+    }
+    const total = calcularTotal(carrito);
+    actualizarTotal(total);
+    guardarEnStorage(carrito);
+    actualizarEstadoCarrito();
+  });
 }
 
 function guardarEnStorage(valor) {
