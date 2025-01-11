@@ -293,45 +293,11 @@
 
           <div class="pantalla-finalizar-compra__right">
             <h2>Mi compra</h2>
-            <div>
+            <div id="miCompra">
               <div class="mi-compra__row">
                 <img
                   class="mi-compra__img"
                   src="./img/fondos/img2.jpg"
-                  alt="producto"
-                />
-                <div class="mi-compra__container-info-producto">
-                  <div class="mi-compra__info-producto">
-                    <span
-                      >Crema hidratante nocturna té de manzanilla y
-                      lavanda</span
-                    >
-                    <span>1 unidad</span>
-                  </div>
-                  <div class="mi-compra__info-producto-precio">$ 7.404,00</div>
-                </div>
-              </div>
-              <div class="mi-compra__row">
-                <img
-                  class="mi-compra__img"
-                  src="./img/fondos/img2.jpg"
-                  alt="producto"
-                />
-                <div class="mi-compra__container-info-producto">
-                  <div class="mi-compra__info-producto">
-                    <span
-                      >Crema hidratante nocturna té de manzanilla y
-                      lavanda</span
-                    >
-                    <span>1 unidad</span>
-                  </div>
-                  <div class="mi-compra__info-producto-precio">$ 7.404,00</div>
-                </div>
-              </div>
-              <div class="mi-compra__row">
-                <img
-                  class="mi-compra__img"
-                  src="./img/fondos/img1.jpg"
                   alt="producto"
                 />
                 <div class="mi-compra__container-info-producto">
@@ -351,7 +317,7 @@
               <div class="confirmar-compra__datos">
                 <div>
                   <p>Valor de la compra</p>
-                  <div>$123456</div>
+                  <div id="totalDeLaCompra">$123456</div>
                 </div>
                 <div>
                   <p>Envío a domicilio</p>
@@ -359,7 +325,7 @@
                 </div>
               </div>
               <div class="confirmar-compra__total">
-                Total: <span>$300678</span>
+                Total: <span id="compraMasEnvio">$300678</span>
               </div>
               <button id="comprar" class="confirmar-compra__finalizar-compra">
                 Comprar
@@ -839,6 +805,10 @@
 
       <div id="graciasPorTuCompra" class="thank-you-purchase">
         <p>¡Gracias por tu compra!</p>
+        <p>
+          Tu pedido va a estar llegando a tu domicilio en los proximos 3 días
+          hábiles.
+        </p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="443.57"
@@ -979,6 +949,10 @@
             stroke-width="0"
           />
         </svg>
+        <p>
+          Ante cualquier duda, podes comunicarte via mail con nuestro equipo:
+          joyasanfitrite@gmail.com
+        </p>
         <button id="volverInicio">Volver a la página principal</button>
       </div>
 

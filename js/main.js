@@ -8,7 +8,6 @@ pedirProductos(true);
 
 function funcionPrincipal(productos) {
   let carrito = recuperarCarritoDelStorage();
-
   renderizarCarrito(carrito);
   crearCardsProductos(productos, carrito);
 
@@ -145,22 +144,6 @@ function agradecimientoCompra() {
   });
 }
 
-function agradecimientoCompra() {
-  const agradecimiento = document.getElementById("graciasPorTuCompra");
-  const botonVolver = document.getElementById("volverInicio");
-
-  if (agradecimiento) {
-    agradecimiento.style.display = "flex";
-  } else {
-    console.error("El elemento con id 'graciasPorTuCompra' no existe.");
-    return;
-  }
-
-  botonVolver?.addEventListener("click", () => {
-    window.location.href = "./index.html";
-  });
-}
-
 function filtrarYrenderizarConBoton(input, productos) {
   let productosFiltrados = filtrar(input.value, productos);
   crearCardsProductos(productosFiltrados);
@@ -224,6 +207,7 @@ function agregarProductoAlCarrito(event, productos) {
   mostrarPopup();
   guardarEnStorage(carrito);
   renderizarCarrito(carrito);
+  renderizarProductosMiCompra(carrito);
 }
 
 function crearCardsProductos(productos, carrito) {
@@ -460,6 +444,7 @@ function sumarUnidadProdCarrito(e) {
     e.target.parentElement.children[1].innerText =
       carrito[indiceProducto].unidades;
     renderizarCarrito(carrito);
+    renderizarProductosMiCompra(carrito);
   }
 }
 
@@ -497,11 +482,13 @@ function restarUnidadProdCarrito(e) {
   actualizarTotal(total);
 
   actualizarEstadoCarrito();
+  renderizarProductosMiCompra(carrito);
 }
 
 function eliminarProductoDelCarrito(e) {
   let id = Number(e.currentTarget.id.substring(3));
   let carrito = recuperarCarritoDelStorage();
+
   let indiceProducto = carrito.findIndex((producto) => producto.id === id);
 
   Swal.fire({
@@ -529,6 +516,7 @@ function eliminarProductoDelCarrito(e) {
     actualizarTotal(total);
     guardarEnStorage(carrito);
     actualizarEstadoCarrito();
+    renderizarProductosMiCompra(carrito);
   });
 }
 
@@ -540,3 +528,46 @@ function guardarEnStorage(valor) {
 function recuperarCarritoDelStorage() {
   return JSON.parse(localStorage.getItem("carrito")) ?? [];
 }
+
+function renderizarProductosMiCompra(productos) {
+  let carrito = recuperarCarritoDelStorage();
+  let contenedorMiCompra = document.getElementById("miCompra");
+  contenedorMiCompra.innerHTML = "";
+
+  productos.forEach((producto) => {
+    let productoItem = document.createElement("div");
+    productoItem.className = "mi-compra__row";
+    let subtotalProducto = producto.precioUnitario * producto.unidades;
+
+    productoItem.innerHTML = `
+      <img class="mi-compra__img" src="${producto.rutaImagen}" alt="${producto.nombre}" />
+      <div class="mi-compra__container-info-producto">
+        <div class="mi-compra__info-producto">
+          <p>${producto.nombre}</p>
+          <p>${producto.unidades}</p>
+        </div>
+        <div class="mi-compra__info-producto-precio">$ ${subtotalProducto}</div>
+      </div>`;
+
+    contenedorMiCompra.appendChild(productoItem);
+  });
+
+  const total = calcularTotal(carrito);
+
+  const totalCompra = document.getElementById("totalDeLaCompra");
+  totalCompra.innerHTML = `$ ${total}`;
+
+  const cuentaFinal = total + 8500;
+
+  const compraMasEnvio = document.getElementById("compraMasEnvio");
+  compraMasEnvio.innerHTML = `$ ${cuentaFinal}`;
+
+  actualizarTotal(total);
+  guardarEnStorage(carrito);
+  actualizarEstadoCarrito();
+}
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+renderizarProductosMiCompra(carrito);
+
+//hacer que solo e habilite el boton "comprar" cuando se hayan completado el formulario de envío y el de pago
