@@ -691,7 +691,7 @@
 
         <div class="pantalla-finalizar-compra__container">
           <div class="pantalla-finalizar-compra__left">
-            <div>
+            <div id="formularioEnvio">
               <h2>Formulario de Envío</h2>
               <form class="form">
                 <div>
@@ -782,11 +782,13 @@
                 </div>
 
                 <div>
-                  <button type="submit">Enviar</button>
+                  <button id="botonformularioEnvio" type="submit">
+                    Enviar
+                  </button>
                 </div>
               </form>
             </div>
-            <div>
+            <div id="formularioPago" class="formularioPago">
               <h2>Pago</h2>
               <div class="tarjetas">
                 <button>Tarjeta de crédito</button>
@@ -875,7 +877,7 @@
                   <div class="error-message" id="dni-error"></div>
                 </div>
 
-                <button type="submit">Enviar</button>
+                <button id="botonFormularioPago" type="submit">Enviar</button>
               </form>
             </div>
           </div>

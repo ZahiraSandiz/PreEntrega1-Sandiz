@@ -4,6 +4,7 @@ function pedirProductos() {
     .then((productos) => funcionPrincipal(productos))
     .catch((error) => console.log(error, "Algo salió mal en el info.json"));
 }
+
 pedirProductos(true);
 
 function funcionPrincipal(productos) {
@@ -73,31 +74,50 @@ function funcionPrincipal(productos) {
   let botonFinalizarCompra = document.getElementById("boton-finalizar-compra");
   botonFinalizarCompra.addEventListener("click", () => finalizarCompra());
 
-  // Configuración del evento para finalizar la compra y generar la factura
   let botonComprar = document.getElementById("comprar");
+  botonComprar.disabled = true;
   botonComprar.addEventListener("click", () => comprar());
 
-  // Configuración del evento para capturar datos del formulario
-  let formularioEnvio = document.querySelector(".form");
-  formularioEnvio.addEventListener("submit", () => capturarDatosFormulario());
+  let formularioEnvio = document.getElementById("formularioEnvio");
+  formularioEnvio.addEventListener("submit", (e) =>
+    capturarDatosFormularioEnvio(e, botonComprar)
+  );
 }
 
-function capturarDatosFormulario(e) {
-  e.preventDefault(); // Evita que la página se recargue al enviar el formulario
+function capturarDatosFormularioEnvio(e, botonComprar) {
+  e.preventDefault();
 
-  // Capturar los datos del formulario
   const datosComprador = {
-    provincia: document.getElementById("provincia").value,
-    localidad: document.getElementById("localidad").value,
-    codigoPostal: document.getElementById("codigo-postal").value,
-    calle: document.getElementById("calle").value,
-    numero: document.getElementById("numero").value,
-    piso: document.getElementById("piso").value,
-    nombre: document.getElementById("nombre").value,
-    telefono: document.getElementById("telefono").value,
+    provincia: document.getElementById("provincia").value.trim(),
+    localidad: document.getElementById("localidad").value.trim(),
+    codigoPostal: document.getElementById("codigo-postal").value.trim(),
+    calle: document.getElementById("calle").value.trim(),
+    numero: document.getElementById("numero").value.trim(),
+    piso: document.getElementById("piso").value.trim(),
+    nombre: document.getElementById("nombre").value.trim(),
+    telefono: document.getElementById("telefono").value.trim(),
   };
+  const camposObligatorios = [
+    "provincia",
+    "localidad",
+    "codigoPostal",
+    "calle",
+    "numero",
+    "nombre",
+    "telefono",
+  ];
+  const datosCompletos = camposObligatorios.every(
+    (campo) => datosComprador[campo]
+  );
 
-  // Guardar los datos en el LocalStorage
+  if (!datosCompletos) {
+    Swal.fire({
+      title: "Por favor, completa todos los campos obligatorios.",
+      icon: "error",
+    });
+    return;
+  }
+
   localStorage.setItem("datosComprador", JSON.stringify(datosComprador));
 
   Swal.fire({
@@ -106,10 +126,71 @@ function capturarDatosFormulario(e) {
     draggable: true,
   });
 
-  // Si no obtiene datos del formulario de capturarDatosFormulario, que no se habilite el boton comprar, por ende no se puede no se ejecuta la funcion comprar
+  const formularioEnvio = document.getElementById("formularioEnvio");
+  formularioEnvio.style.display = "none";
+
+  const formularioPago = document.getElementById("formularioPago");
+  formularioPago.style.display = "inline-block";
+
+  capturarDatosFormularioPago();
 }
 
-// Función para finalizar la compra y generar la factura
+function capturarDatosFormularioPago() {
+  const formularioPago = document.getElementById("formularioPago");
+  const botonFormularioPago = document.getElementById("botonFormularioPago");
+  const botonComprar = document.getElementById("comprar");
+
+  // Añadimos un listener para el evento submit del formulario
+  formularioPago.addEventListener("submit", (event) => {
+    event.preventDefault(); // Prevenimos la recarga de la página
+
+    // Recogemos los valores de los campos
+    const numeroTarjeta = document
+      .getElementById("numero-tarjeta")
+      .value.trim();
+    const vencimientoMes = document
+      .getElementById("vencimiento-mes")
+      .value.trim();
+    const vencimientoAnio = document
+      .getElementById("vencimiento-anio")
+      .value.trim();
+    const codigoSeguridad = document
+      .getElementById("codigo-seguridad")
+      .value.trim();
+    const nombreTarjeta = document
+      .getElementById("nombre-tarjeta")
+      .value.trim();
+    const dni = document.getElementById("dni").value.trim();
+
+    // Validamos los campos (esto es un ejemplo simple, puedes añadir más validaciones si es necesario)
+    if (
+      numeroTarjeta &&
+      vencimientoMes &&
+      vencimientoAnio &&
+      codigoSeguridad &&
+      nombreTarjeta &&
+      dni
+    ) {
+      // Guardamos los datos (en este caso, en el localStorage)
+      localStorage.setItem("numeroTarjeta", numeroTarjeta);
+      localStorage.setItem("vencimientoMes", vencimientoMes);
+      localStorage.setItem("vencimientoAnio", vencimientoAnio);
+      localStorage.setItem("codigoSeguridad", codigoSeguridad);
+      localStorage.setItem("nombreTarjeta", nombreTarjeta);
+      localStorage.setItem("dni", dni);
+
+      Swal.fire({
+        title: "Datos guardados correctamente",
+        icon: "success",
+        draggable: true,
+      });
+
+      // Habilitamos el botón de comprar
+      botonComprar.disabled = false;
+    }
+  });
+}
+
 function comprar() {
   Swal.fire({
     title: "¿Querés comprar el carrito?",
@@ -128,47 +209,59 @@ function comprar() {
       });
     }
   });
+}
 
-  function factura() {
-    const facturaDeCompra = document.getElementById("facturaDeCompra");
-    facturaDeCompra.innerHTML = "";
+function factura() {
+  const facturaDeCompra = document.getElementById("facturaDeCompra");
+  facturaDeCompra.innerHTML = "";
 
-    const pantallaFacturaCompra = document.getElementById(
-      "pantalla-factura-compra"
-    );
-    pantallaFacturaCompra.style.display = "flex";
+  const pantallaFacturaCompra = document.getElementById(
+    "pantalla-factura-compra"
+  );
+  pantallaFacturaCompra.style.display = "flex";
 
-    const datosComprador = JSON.parse(localStorage.getItem("datosComprador"));
+  const datosComprador = JSON.parse(localStorage.getItem("datosComprador"));
 
-    if (!datosComprador) {
-      alert("Por favor, completa el formulario antes de finalizar la compra.");
-      return;
-    }
-
-    const detalle = document.createElement("div");
-    detalle.className = "detalle-factura";
-
-    detalle.innerHTML = `
-      <h2>Datos del envío</h2>
-      <p><strong>Nombre y Apellido:</strong> ${datosComprador.nombre}</p>
-      <p><strong>Teléfono:</strong> ${datosComprador.telefono}</p>
-      <p><strong>Dirección:</strong> ${datosComprador.calle} ${
-      datosComprador.numero
-    }, Piso: ${datosComprador.piso || "N/A"}, ${datosComprador.localidad}, ${
-      datosComprador.provincia
-    }, Código Postal: ${datosComprador.codigoPostal}</p>
-      <p><strong>Valor de la compra:</strong> $123456</p>
-      <p><strong>Envío:</strong> $8500</p>
-      <p><strong>Total:</strong> $300678</p>
-    `;
-
-    facturaDeCompra.appendChild(detalle);
-
-    const botonVolverInicio = document.getElementById("volverInicio");
-    botonVolverInicio.addEventListener("click", () => {
-      window.location.href = "./index.html";
+  if (!datosComprador) {
+    Swal.fire({
+      text: "Por favor, completa el formulario antes de finalizar la compra.",
+      icon: "error",
     });
   }
+
+  const carrito = recuperarCarritoDelStorage();
+  const totalCompra = calcularTotal(carrito);
+  const costoEnvio = 8500; // Costo de envío fijo
+  const totalConEnvio = totalCompra + costoEnvio;
+
+  const detalle = document.createElement("div");
+  detalle.className = "detalle-factura";
+
+  detalle.innerHTML = `
+    <h2>Datos del envío</h2>
+    <p><strong>Nombre y Apellido:</strong> ${datosComprador.nombre}</p>
+    <p><strong>Teléfono:</strong> ${datosComprador.telefono}</p>
+    <p><strong>Dirección:</strong> ${datosComprador.calle} ${
+    datosComprador.numero
+  }, Piso: ${datosComprador.piso || "N/A"}, ${datosComprador.localidad}, ${
+    datosComprador.provincia
+  }, Código Postal: ${datosComprador.codigoPostal}</p>
+    <p><strong>Valor de la compra:</strong> $${totalCompra.toLocaleString()}</p>
+    <p><strong>Envío:</strong> $${costoEnvio.toLocaleString()}</p>
+    <p><strong>Total:</strong> $${totalConEnvio.toLocaleString()}</p>
+  `;
+
+  facturaDeCompra.appendChild(detalle);
+
+  localStorage.removeItem("datosComprador");
+
+  const botonComprar = document.getElementById("comprar");
+  botonComprar.disabled = true;
+
+  const botonVolverInicio = document.getElementById("volverInicio");
+  botonVolverInicio.addEventListener("click", () => {
+    window.location.href = "./index.html";
+  });
 
   renderizarCarrito([]);
   localStorage.removeItem("carrito");
@@ -628,4 +721,8 @@ function renderizarProductosMiCompra(productos) {
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 renderizarProductosMiCompra(carrito);
 
-//hacer que solo e habilite el boton "comprar" cuando se hayan completado el formulario de envío y el de pago
+// quiero que el usuario llene el formulario de envío, y que cuando toque el boton de enviar:
+// se guarden esos datos
+// el formulario de envío se ponga en display none
+// el formulario de pago se ponga en display block
+// y recien cuando llene el formulario de pago y toque el boton de enviar, se le saque el estado de disabled al boton con id comprar para que el usuario pueda ir a ver la factura de su compra

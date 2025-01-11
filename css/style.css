@@ -706,3 +706,17 @@ footer {
   flex-direction: column;
   gap: 22px;
 }
+
+.confirmar-compra__finalizar-compra:disabled {
+  color: grey;
+  background-color: #eaeaea;
+  box-shadow: none;
+  cursor: auto;
+}
+.confirmar-compra__finalizar-compra:disabled:hover {
+  transform: scale(1);
+}
+
+.formularioPago {
+  display: none;
+}
