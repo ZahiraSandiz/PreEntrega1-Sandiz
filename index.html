@@ -82,6 +82,296 @@
       </section>
     </header>
     <main>
+      <div id="pantallaFinalizarCompra" class="pantalla-finalizar-compra">
+        <div id="volverAlCarrito" class="wrap-volver-al-carrito">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="30"
+            height="30"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 5L8 12L15 19" />
+          </svg>
+          <button>Volver al carrito</button>
+        </div>
+
+        <div class="pantalla-finalizar-compra__container">
+          <div class="pantalla-finalizar-compra__left">
+            <div>
+              <h2>Formulario de Envío</h2>
+              <form class="form">
+                <div>
+                  <label for="provincia">Provincia:</label>
+                  <input
+                    type="text"
+                    id="provincia"
+                    name="provincia"
+                    required
+                    placeholder="Ej: Buenos Aires"
+                  />
+                </div>
+
+                <div>
+                  <label for="localidad">Localidad:</label>
+                  <input
+                    type="text"
+                    id="localidad"
+                    name="localidad"
+                    required
+                    placeholder="Ej: La Plata"
+                  />
+                </div>
+
+                <div>
+                  <label for="codigo-postal">Código Postal:</label>
+                  <input
+                    type="number"
+                    id="codigo-postal"
+                    name="codigo-postal"
+                    required
+                    placeholder="Ej: 1900"
+                  />
+                </div>
+
+                <div>
+                  <label for="calle">Calle:</label>
+                  <input
+                    type="text"
+                    id="calle"
+                    name="calle"
+                    required
+                    placeholder="Ej: Avenida 19 de Noviembre"
+                  />
+                </div>
+
+                <div>
+                  <label for="numero">Número:</label>
+                  <input
+                    type="number"
+                    id="numero"
+                    name="numero"
+                    required
+                    placeholder="Ej: 123"
+                  />
+                </div>
+
+                <div>
+                  <label for="piso">Piso y departamento (opcional):</label>
+                  <input
+                    type="text"
+                    id="piso"
+                    name="piso"
+                    placeholder="Ej: 5B"
+                  />
+                </div>
+
+                <div>
+                  <label for="nombre">Nombre y Apellido:</label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    required
+                    placeholder="Ej: Juan Pérez"
+                  />
+                </div>
+
+                <div>
+                  <label for="telefono">Teléfono:</label>
+                  <input
+                    type="number"
+                    id="telefono"
+                    name="telefono"
+                    required
+                    placeholder="Ej: +54 9 11 1234-5678"
+                  />
+                </div>
+
+                <div>
+                  <button type="submit">Enviar</button>
+                </div>
+              </form>
+            </div>
+            <div>
+              <h2>Pago</h2>
+              <div class="tarjetas">
+                <button>Tarjeta de crédito</button>
+                <button>Tarjeta de débito</button>
+              </div>
+              <form class="form">
+                <div>
+                  <label for="numero-tarjeta">Número de Tarjeta:</label>
+                  <input
+                    type="number"
+                    id="numero-tarjeta"
+                    name="numero-tarjeta"
+                    required
+                    placeholder="Ej: 1234 5678 9876 5432"
+                  />
+                  <div class="error-message" id="numero-tarjeta-error"></div>
+                </div>
+
+                <div>
+                  <label for="vencimiento-mes">Vencimiento:</label>
+                  <select id="vencimiento-mes" name="vencimiento-mes" required>
+                    <option value="">Mes</option>
+                    <option value="01">Enero</option>
+                    <option value="02">Febrero</option>
+                    <option value="03">Marzo</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Mayo</option>
+                    <option value="06">Junio</option>
+                    <option value="07">Julio</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                  </select>
+                  <select
+                    id="vencimiento-anio"
+                    name="vencimiento-anio"
+                    required
+                  >
+                    <option value="">Año</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                  </select>
+                  <div class="error-message" id="vencimiento-error"></div>
+                </div>
+
+                <div>
+                  <label for="codigo-seguridad">Código de Seguridad:</label>
+                  <input
+                    type="number"
+                    id="codigo-seguridad"
+                    name="codigo-seguridad"
+                    required
+                    placeholder="Ej: 123"
+                  />
+                  <div class="error-message" id="codigo-seguridad-error"></div>
+                </div>
+
+                <div>
+                  <label for="nombre-tarjeta"
+                    >Nombre y Apellido (como en la tarjeta):</label
+                  >
+                  <input
+                    type="text"
+                    id="nombre-tarjeta"
+                    name="nombre-tarjeta"
+                    required
+                    placeholder="Ej: Juan Pérez"
+                  />
+                  <div class="error-message" id="nombre-tarjeta-error"></div>
+                </div>
+
+                <div>
+                  <label for="dni">DNI:</label>
+                  <input
+                    type="number"
+                    id="dni"
+                    name="dni"
+                    required
+                    placeholder="Ej: 12345678"
+                  />
+                  <div class="error-message" id="dni-error"></div>
+                </div>
+
+                <button type="submit">Enviar</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="pantalla-finalizar-compra__right">
+            <h2>Mi compra</h2>
+            <div>
+              <div class="mi-compra__row">
+                <img
+                  class="mi-compra__img"
+                  src="./img/fondos/img2.jpg"
+                  alt="producto"
+                />
+                <div class="mi-compra__container-info-producto">
+                  <div class="mi-compra__info-producto">
+                    <span
+                      >Crema hidratante nocturna té de manzanilla y
+                      lavanda</span
+                    >
+                    <span>1 unidad</span>
+                  </div>
+                  <div class="mi-compra__info-producto-precio">$ 7.404,00</div>
+                </div>
+              </div>
+              <div class="mi-compra__row">
+                <img
+                  class="mi-compra__img"
+                  src="./img/fondos/img2.jpg"
+                  alt="producto"
+                />
+                <div class="mi-compra__container-info-producto">
+                  <div class="mi-compra__info-producto">
+                    <span
+                      >Crema hidratante nocturna té de manzanilla y
+                      lavanda</span
+                    >
+                    <span>1 unidad</span>
+                  </div>
+                  <div class="mi-compra__info-producto-precio">$ 7.404,00</div>
+                </div>
+              </div>
+              <div class="mi-compra__row">
+                <img
+                  class="mi-compra__img"
+                  src="./img/fondos/img1.jpg"
+                  alt="producto"
+                />
+                <div class="mi-compra__container-info-producto">
+                  <div class="mi-compra__info-producto">
+                    <span
+                      >Crema hidratante nocturna té de manzanilla y
+                      lavanda</span
+                    >
+                    <span>1 unidad</span>
+                  </div>
+                  <div class="mi-compra__info-producto-precio">$ 7.404,00</div>
+                </div>
+              </div>
+            </div>
+            <span class="pantalla-finalizar-compra__right-line"></span>
+            <div class="confirmar-compra">
+              <div class="confirmar-compra__datos">
+                <div>
+                  <p>Valor de la compra</p>
+                  <div>$123456</div>
+                </div>
+                <div>
+                  <p>Envío a domicilio</p>
+                  <div>$8500</div>
+                </div>
+              </div>
+              <div class="confirmar-compra__total">
+                Total: <span>$300678</span>
+              </div>
+              <button id="comprar" class="confirmar-compra__finalizar-compra">
+                Comprar
+              </button>
+              <button id="botonVolverAlInicio" class="boton-volver-al-inicio">
+                Volver al inicio
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <h1>Productos</h1>
 
       <div class="main-top">

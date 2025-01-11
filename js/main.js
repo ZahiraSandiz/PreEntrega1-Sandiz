@@ -73,6 +73,9 @@ function funcionPrincipal(productos) {
 
   let botonFinalizarCompra = document.getElementById("boton-finalizar-compra");
   botonFinalizarCompra.addEventListener("click", () => finalizarCompra());
+
+  let botonComprar = document.getElementById("comprar");
+  botonComprar.addEventListener("click", () => comprar());
 }
 
 function calcularTotal(productos) {
@@ -85,32 +88,76 @@ function actualizarTotal(total) {
 }
 
 function finalizarCompra() {
+  const pantallaFinalizarCompra = document.getElementById(
+    "pantallaFinalizarCompra"
+  );
+  pantallaFinalizarCompra.style.display = "block";
+
+  const botonVolverAlCarrito = document.getElementById("volverAlCarrito");
+  botonVolverAlCarrito.addEventListener("click", () => {
+    pantallaFinalizarCompra.style.display = "none";
+  });
+
+  const botonVolverAlInicio = document.getElementById("botonVolverAlInicio");
+
+  botonVolverAlInicio.addEventListener("click", () => {
+    window.location.href = "./index.html";
+  });
+}
+
+function comprar() {
+  const pantallaFinalizarCompra = document.getElementById(
+    "pantallaFinalizarCompra"
+  );
+
   Swal.fire({
-    title: "¿Quieres finalizar la compra?",
+    title: "¿Querés comprar el carrito?",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
+    confirmButtonColor: "#569a32",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Si, comprar",
-    cancelButtonText: "No, aún no",
+    confirmButtonText: "Si, quiero",
   }).then((result) => {
     if (result.isConfirmed) {
-      renderizarCarrito([]);
-      localStorage.removeItem("carrito");
-      localStorage.setItem("carrito", JSON.stringify([]));
+      Swal.fire({
+        title: "Su compra ha sido realizada",
+        text: "Gracias por elegirnos.",
+        icon: "success",
+      }).then(() => {
+        renderizarCarrito([]);
+        localStorage.removeItem("carrito");
+        localStorage.setItem("carrito", JSON.stringify([]));
 
-      let carrito = document.getElementById("carrito");
-      function agradecimientoCompra() {
-        const agradecimiento = document.getElementById("graciasPorTuCompra");
-        const botonVolver = document.getElementById("volverInicio");
-
-        agradecimiento.style.display = "flex";
-
-        botonVolver.addEventListener("click", () => {
-          window.location.href = "./index.html";
-        });
-      }
-      agradecimientoCompra();
+        agradecimientoCompra();
+        pantallaFinalizarCompra.style.display = "none";
+      });
     }
+  });
+}
+
+function agradecimientoCompra() {
+  const agradecimiento = document.getElementById("graciasPorTuCompra");
+  const botonVolver = document.getElementById("volverInicio");
+
+  agradecimiento.style.display = "flex";
+
+  botonVolver.addEventListener("click", () => {
+    window.location.href = "./index.html";
+  });
+}
+
+function agradecimientoCompra() {
+  const agradecimiento = document.getElementById("graciasPorTuCompra");
+  const botonVolver = document.getElementById("volverInicio");
+
+  if (agradecimiento) {
+    agradecimiento.style.display = "flex";
+  } else {
+    console.error("El elemento con id 'graciasPorTuCompra' no existe.");
+    return;
+  }
+
+  botonVolver?.addEventListener("click", () => {
+    window.location.href = "./index.html";
   });
 }
 
