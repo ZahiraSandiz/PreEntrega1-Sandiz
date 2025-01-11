@@ -73,8 +73,106 @@ function funcionPrincipal(productos) {
   let botonFinalizarCompra = document.getElementById("boton-finalizar-compra");
   botonFinalizarCompra.addEventListener("click", () => finalizarCompra());
 
+  // Configuración del evento para finalizar la compra y generar la factura
   let botonComprar = document.getElementById("comprar");
   botonComprar.addEventListener("click", () => comprar());
+
+  // Configuración del evento para capturar datos del formulario
+  let formularioEnvio = document.querySelector(".form");
+  formularioEnvio.addEventListener("submit", () => capturarDatosFormulario());
+}
+
+function capturarDatosFormulario(e) {
+  e.preventDefault(); // Evita que la página se recargue al enviar el formulario
+
+  // Capturar los datos del formulario
+  const datosComprador = {
+    provincia: document.getElementById("provincia").value,
+    localidad: document.getElementById("localidad").value,
+    codigoPostal: document.getElementById("codigo-postal").value,
+    calle: document.getElementById("calle").value,
+    numero: document.getElementById("numero").value,
+    piso: document.getElementById("piso").value,
+    nombre: document.getElementById("nombre").value,
+    telefono: document.getElementById("telefono").value,
+  };
+
+  // Guardar los datos en el LocalStorage
+  localStorage.setItem("datosComprador", JSON.stringify(datosComprador));
+
+  Swal.fire({
+    title: "Datos guardados correctamente",
+    icon: "success",
+    draggable: true,
+  });
+
+  // Si no obtiene datos del formulario de capturarDatosFormulario, que no se habilite el boton comprar, por ende no se puede no se ejecuta la funcion comprar
+}
+
+// Función para finalizar la compra y generar la factura
+function comprar() {
+  Swal.fire({
+    title: "¿Querés comprar el carrito?",
+    showCancelButton: true,
+    confirmButtonColor: "#569a32",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, quiero",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Su compra ha sido realizada",
+        text: "Gracias por elegirnos.",
+        icon: "success",
+      }).then(() => {
+        factura();
+      });
+    }
+  });
+
+  function factura() {
+    const facturaDeCompra = document.getElementById("facturaDeCompra");
+    facturaDeCompra.innerHTML = "";
+
+    const pantallaFacturaCompra = document.getElementById(
+      "pantalla-factura-compra"
+    );
+    pantallaFacturaCompra.style.display = "flex";
+
+    const datosComprador = JSON.parse(localStorage.getItem("datosComprador"));
+
+    if (!datosComprador) {
+      alert("Por favor, completa el formulario antes de finalizar la compra.");
+      return;
+    }
+
+    const detalle = document.createElement("div");
+    detalle.className = "detalle-factura";
+
+    detalle.innerHTML = `
+      <h2>Datos del envío</h2>
+      <p><strong>Nombre y Apellido:</strong> ${datosComprador.nombre}</p>
+      <p><strong>Teléfono:</strong> ${datosComprador.telefono}</p>
+      <p><strong>Dirección:</strong> ${datosComprador.calle} ${
+      datosComprador.numero
+    }, Piso: ${datosComprador.piso || "N/A"}, ${datosComprador.localidad}, ${
+      datosComprador.provincia
+    }, Código Postal: ${datosComprador.codigoPostal}</p>
+      <p><strong>Valor de la compra:</strong> $123456</p>
+      <p><strong>Envío:</strong> $8500</p>
+      <p><strong>Total:</strong> $300678</p>
+    `;
+
+    facturaDeCompra.appendChild(detalle);
+
+    const botonVolverInicio = document.getElementById("volverInicio");
+    botonVolverInicio.addEventListener("click", () => {
+      window.location.href = "./index.html";
+    });
+  }
+
+  renderizarCarrito([]);
+  localStorage.removeItem("carrito");
+  localStorage.setItem("carrito", JSON.stringify([]));
 }
 
 function calcularTotal(productos) {
@@ -100,46 +198,6 @@ function finalizarCompra() {
   const botonVolverAlInicio = document.getElementById("botonVolverAlInicio");
 
   botonVolverAlInicio.addEventListener("click", () => {
-    window.location.href = "./index.html";
-  });
-}
-
-function comprar() {
-  const pantallaFinalizarCompra = document.getElementById(
-    "pantallaFinalizarCompra"
-  );
-
-  Swal.fire({
-    title: "¿Querés comprar el carrito?",
-    showCancelButton: true,
-    confirmButtonColor: "#569a32",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Si, quiero",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire({
-        title: "Su compra ha sido realizada",
-        text: "Gracias por elegirnos.",
-        icon: "success",
-      }).then(() => {
-        renderizarCarrito([]);
-        localStorage.removeItem("carrito");
-        localStorage.setItem("carrito", JSON.stringify([]));
-
-        agradecimientoCompra();
-        pantallaFinalizarCompra.style.display = "none";
-      });
-    }
-  });
-}
-
-function agradecimientoCompra() {
-  const agradecimiento = document.getElementById("graciasPorTuCompra");
-  const botonVolver = document.getElementById("volverInicio");
-
-  agradecimiento.style.display = "flex";
-
-  botonVolver.addEventListener("click", () => {
     window.location.href = "./index.html";
   });
 }
