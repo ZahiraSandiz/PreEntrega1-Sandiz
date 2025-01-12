@@ -702,6 +702,10 @@ footer {
   gap: 22px;
 }
 
+.factura-de-compra {
+  width: 50%;
+}
+
 .confirmar-compra__finalizar-compra:disabled {
   color: grey;
   background-color: #eaeaea;
@@ -721,4 +725,24 @@ footer {
   color: white;
   width: fit-content;
   align-self: end;
+}
+
+.datos-de-la-compra {
+  text-transform: uppercase;
+  margin: 20px 0;
+  padding: 50px;
+  border: solid 1px grey;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.datos-de-la-compra__total {
+  display: flex;
+  align-items: end;
+  flex-direction: column;
+  gap: 18px;
+  background-color: #d8d8d8;
+  border-radius: 6px;
+  padding: 26px 10px;
 }

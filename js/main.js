@@ -231,47 +231,91 @@ function comprar() {
     }
   });
 }
-
 function factura() {
   const facturaDeCompra = document.getElementById("facturaDeCompra");
   facturaDeCompra.innerHTML = "";
 
+  const productos = recuperarCarritoDelStorage();
+
   const pantallaFacturaCompra = document.getElementById(
     "pantalla-factura-compra"
   );
-
   pantallaFacturaCompra.style.display = "flex";
 
   const datosComprador = JSON.parse(localStorage.getItem("datosComprador"));
+
+  if (!datosComprador) {
+    Swal.fire({
+      title: "Error",
+      text: "No hay datos del comprador disponibles.",
+      icon: "error",
+    });
+    return;
+  }
 
   const carrito = recuperarCarritoDelStorage();
   const totalCompra = calcularTotal(carrito);
   const costoEnvio = 8500;
   const totalConEnvio = totalCompra + costoEnvio;
 
-  const detalle = document.createElement("div");
-  detalle.className = "detalle-factura";
+  const datosDelComprador = document.createElement("div");
+  datosDelComprador.className = "detalle-factura";
 
-  detalle.innerHTML = `
+  datosDelComprador.innerHTML = `
     <h2>Datos del envío</h2>
     <p><strong>Nombre y Apellido:</strong> ${datosComprador.nombre}</p>
     <p><strong>Teléfono:</strong> ${datosComprador.telefono}</p>
-    <p><strong>Dirección:</strong> ${datosComprador.calle} ${
-    datosComprador.numero
-  }, Piso: ${datosComprador.piso || "N/A"}, ${datosComprador.localidad}, ${
-    datosComprador.provincia
-  }, Código Postal: ${datosComprador.codigoPostal}</p>
+    <p><strong>Calle:</strong> ${datosComprador.calle}</p>
+    <p><strong>Altura:</strong> ${datosComprador.numero}</p>
+    <p><strong>Piso:</strong> ${datosComprador.piso || "N/A"}</p>
+    <p><strong>Localidad:</strong> ${datosComprador.localidad}</p>
+    <p><strong>Provincia:</strong> ${datosComprador.provincia}</p>
+    <p><strong>Código Postal:</strong> ${datosComprador.codigoPostal}</p>
+  `;
+  facturaDeCompra.appendChild(datosDelComprador);
+
+  const datosDeLaCompra = document.createElement("div");
+  datosDeLaCompra.className = "datos-de-la-compra";
+
+  const titulo = document.createElement("h2");
+  titulo.className = "datos-de-la-compra__titulo";
+  titulo.innerText = "Productos";
+  datosDeLaCompra.appendChild(titulo);
+
+  productos.forEach((producto) => {
+    let productoItem = document.createElement("div");
+    productoItem.className = "mi-compra__row";
+
+    let subtotalProducto = producto.precioUnitario * producto.unidades;
+
+    productoItem.innerHTML = `
+      <img class="mi-compra__img" src="${producto.rutaImagen}" alt="${producto.nombre}" />
+      <div class="mi-compra__container-info-producto">
+        <div class="mi-compra__info-producto">
+          <p>${producto.nombre}</p>
+          <p>${producto.unidades} unidades</p>
+        </div>
+        <div class="mi-compra__info-producto-precio">$ ${subtotalProducto}</div>
+      </div>`;
+    datosDeLaCompra.appendChild(productoItem);
+  });
+  facturaDeCompra.appendChild(datosDeLaCompra);
+
+  const total = document.createElement("div");
+  total.className = "datos-de-la-compra__total";
+  total.innerHTML = `
     <p><strong>Valor de la compra:</strong> $${totalCompra.toLocaleString()}</p>
-    <p><strong>Envío:</strong> $${costoEnvio.toLocaleString()}</p>
+    <p><strong>Valor del envío:</strong> $${costoEnvio.toLocaleString()}</p>
     <p><strong>Total:</strong> $${totalConEnvio.toLocaleString()}</p>
   `;
-
-  facturaDeCompra.appendChild(detalle);
+  datosDeLaCompra.appendChild(total);
 
   localStorage.removeItem("datosComprador");
 
   const botonComprar = document.getElementById("comprar");
-  botonComprar.disabled = true;
+  if (botonComprar) {
+    botonComprar.disabled = true;
+  }
 
   const botonVolverInicio = document.getElementById("volverInicio");
   botonVolverInicio.addEventListener("click", () => {
