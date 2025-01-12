@@ -82,6 +82,34 @@ function funcionPrincipal(productos) {
   formularioEnvio.addEventListener("submit", (e) =>
     capturarDatosFormularioEnvio(e, botonComprar)
   );
+
+  let botonBorrarTodo = document.getElementById("botonBorrarTodo");
+  botonBorrarTodo.addEventListener("click", borrarTodoElCarrito);
+}
+
+function borrarTodoElCarrito() {
+  Swal.fire({
+    title: "¿Estás seguro de eliminar todo el carrito?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, eliminar todo",
+    cancelButtonText: "No, cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Hecho",
+        text: "Se han eliminado todos los productos del carrito",
+        icon: "success",
+      });
+      carrito = [];
+      guardarEnStorage(carrito);
+      renderizarCarrito(carrito);
+      renderizarProductosMiCompra(carrito);
+      botonBorrarTodo.style.display = "none";
+    }
+  });
 }
 
 function capturarDatosFormularioEnvio(e, botonComprar) {
@@ -140,11 +168,9 @@ function capturarDatosFormularioPago() {
   const botonFormularioPago = document.getElementById("botonFormularioPago");
   const botonComprar = document.getElementById("comprar");
 
-  // Añadimos un listener para el evento submit del formulario
   formularioPago.addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevenimos la recarga de la página
+    event.preventDefault();
 
-    // Recogemos los valores de los campos
     const numeroTarjeta = document
       .getElementById("numero-tarjeta")
       .value.trim();
@@ -162,7 +188,6 @@ function capturarDatosFormularioPago() {
       .value.trim();
     const dni = document.getElementById("dni").value.trim();
 
-    // Validamos los campos (esto es un ejemplo simple, puedes añadir más validaciones si es necesario)
     if (
       numeroTarjeta &&
       vencimientoMes &&
@@ -171,7 +196,6 @@ function capturarDatosFormularioPago() {
       nombreTarjeta &&
       dni
     ) {
-      // Guardamos los datos (en este caso, en el localStorage)
       localStorage.setItem("numeroTarjeta", numeroTarjeta);
       localStorage.setItem("vencimientoMes", vencimientoMes);
       localStorage.setItem("vencimientoAnio", vencimientoAnio);
@@ -185,7 +209,6 @@ function capturarDatosFormularioPago() {
         draggable: true,
       });
 
-      // Habilitamos el botón de comprar
       botonComprar.disabled = false;
     }
   });
@@ -231,7 +254,7 @@ function factura() {
 
   const carrito = recuperarCarritoDelStorage();
   const totalCompra = calcularTotal(carrito);
-  const costoEnvio = 8500; // Costo de envío fijo
+  const costoEnvio = 8500;
   const totalConEnvio = totalCompra + costoEnvio;
 
   const detalle = document.createElement("div");
@@ -436,15 +459,18 @@ function actualizarEstadoCarrito() {
     "boton-finalizar-compra"
   );
   const total = document.getElementById("total");
+  const botonBorrarTodo = document.getElementById("botonBorrarTodo");
 
   if (carritoItems.children.length === 0) {
     mensajeCarritoVacio.style.display = "flex";
     botonFinalizarCompra.style.display = "none";
     total.style.display = "none";
+    botonBorrarTodo.style.display = "none";
   } else {
     mensajeCarritoVacio.style.display = "none";
     botonFinalizarCompra.style.display = "block";
     total.style.display = "block";
+    botonBorrarTodo.style.display = "block";
   }
 }
 actualizarEstadoCarrito();
@@ -720,9 +746,3 @@ function renderizarProductosMiCompra(productos) {
 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 renderizarProductosMiCompra(carrito);
-
-// quiero que el usuario llene el formulario de envío, y que cuando toque el boton de enviar:
-// se guarden esos datos
-// el formulario de envío se ponga en display none
-// el formulario de pago se ponga en display block
-// y recien cuando llene el formulario de pago y toque el boton de enviar, se le saque el estado de disabled al boton con id comprar para que el usuario pueda ir a ver la factura de su compra

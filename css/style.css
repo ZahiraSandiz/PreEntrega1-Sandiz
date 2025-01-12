@@ -557,15 +557,6 @@ footer {
   gap: 100px;
 }
 
-.tarjetas {
-  display: flex;
-  gap: 20px;
-  margin-top: 30px;
-}
-.tarjetas button {
-  border: solid 1px grey;
-}
-
 .pantalla-finalizar-compra__right {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -719,4 +710,11 @@ footer {
 
 .formularioPago {
   display: none;
+}
+
+.botonBorrarTodo {
+  background-color: #d60e0e;
+  color: white;
+  width: fit-content;
+  align-self: end;
 }
