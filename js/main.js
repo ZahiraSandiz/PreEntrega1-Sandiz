@@ -138,14 +138,6 @@ function capturarDatosFormularioEnvio(e, botonComprar) {
     (campo) => datosComprador[campo]
   );
 
-  if (!datosCompletos) {
-    Swal.fire({
-      title: "Por favor, completa todos los campos obligatorios.",
-      icon: "error",
-    });
-    return;
-  }
-
   localStorage.setItem("datosComprador", JSON.stringify(datosComprador));
 
   Swal.fire({
@@ -159,6 +151,12 @@ function capturarDatosFormularioEnvio(e, botonComprar) {
 
   const formularioPago = document.getElementById("formularioPago");
   formularioPago.style.display = "inline-block";
+
+  const envioDomicilio = document.getElementById("envioDomicilio");
+  envioDomicilio.style.display = "flex";
+
+  const total = document.getElementById("confirmarCompraTotal");
+  total.style.display = "inline-block";
 
   capturarDatosFormularioPago();
 }
@@ -241,16 +239,10 @@ function factura() {
   const pantallaFacturaCompra = document.getElementById(
     "pantalla-factura-compra"
   );
+
   pantallaFacturaCompra.style.display = "flex";
 
   const datosComprador = JSON.parse(localStorage.getItem("datosComprador"));
-
-  if (!datosComprador) {
-    Swal.fire({
-      text: "Por favor, completa el formulario antes de finalizar la compra.",
-      icon: "error",
-    });
-  }
 
   const carrito = recuperarCarritoDelStorage();
   const totalCompra = calcularTotal(carrito);
@@ -721,7 +713,7 @@ function renderizarProductosMiCompra(productos) {
       <div class="mi-compra__container-info-producto">
         <div class="mi-compra__info-producto">
           <p>${producto.nombre}</p>
-          <p>${producto.unidades}</p>
+          <p>${producto.unidades} unidades</p>
         </div>
         <div class="mi-compra__info-producto-precio">$ ${subtotalProducto}</div>
       </div>`;
@@ -746,3 +738,14 @@ function renderizarProductosMiCompra(productos) {
 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 renderizarProductosMiCompra(carrito);
+
+//Tareas realizadas:
+// array de objetos, migrado a un json y consumido mediante un fetch
+// CkeckOut: pedir al usuario datos para la compra y envío
+// Botón de "vaciar carrito"
+// Generar Comprobante (símil recibo) donde estén los datos previamente solicitados y
+// ESTO ME FALTA: los productos adquiridos
+
+// Tareas pendientes:
+// 1) Agregar lista de productos comprados a la factura
+// 2) Revisar por qué se renderizan 2 veces los productos en el carrito y no cuando antes filtramos

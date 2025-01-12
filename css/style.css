@@ -12,9 +12,8 @@ body {
   background-color: #f5f5f5;
 }
 
-/* Deshabilitar el scroll de la página de fondo */
 body.no-scroll {
-  overflow: hidden; /* Evita que la página de fondo se desplace */
+  overflow: hidden;
 }
 
 ul,
@@ -579,8 +578,7 @@ footer {
 }
 
 .mi-compra__img {
-  min-width: 48px;
-  min-height: 48px;
+  width: 48px;
   height: 48px;
   object-fit: cover;
   border-radius: 4px;
@@ -620,6 +618,7 @@ footer {
 }
 
 .confirmar-compra__datos {
+  font-weight: bold;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -631,7 +630,12 @@ footer {
   gap: 10px;
 }
 
+.confirmar-compra__datos .confirmar-compra__envio-domicilio {
+  display: none;
+}
+
 .confirmar-compra__total {
+  display: none;
   align-self: center;
   background-color: #fafafa;
   padding: 20px 80px;

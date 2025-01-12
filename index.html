@@ -907,15 +907,18 @@
               <div class="confirmar-compra__datos">
                 <div>
                   <p>Valor de la compra</p>
-                  <div id="totalDeLaCompra">$123456</div>
+                  <div id="totalDeLaCompra">$0</div>
                 </div>
-                <div>
+                <div
+                  id="envioDomicilio"
+                  class="confirmar-compra__envio-domicilio"
+                >
                   <p>Envío a domicilio</p>
                   <div>$8500</div>
                 </div>
               </div>
-              <div class="confirmar-compra__total">
-                Total: <span id="compraMasEnvio">$300678</span>
+              <div id="confirmarCompraTotal" class="confirmar-compra__total">
+                Total: <span id="compraMasEnvio">$</span>
               </div>
               <button id="comprar" class="confirmar-compra__finalizar-compra">
                 Comprar
