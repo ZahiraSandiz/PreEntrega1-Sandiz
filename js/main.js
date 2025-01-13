@@ -782,14 +782,3 @@ function renderizarProductosMiCompra(productos) {
 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 renderizarProductosMiCompra(carrito);
-
-//Tareas realizadas:
-// array de objetos, migrado a un json y consumido mediante un fetch
-// CkeckOut: pedir al usuario datos para la compra y envío
-// Botón de "vaciar carrito"
-// Generar Comprobante (símil recibo) donde estén los datos previamente solicitados y
-// ESTO ME FALTA: los productos adquiridos
-
-// Tareas pendientes:
-// 1) Agregar lista de productos comprados a la factura
-// 2) Revisar por qué se renderizan 2 veces los productos en el carrito y no cuando antes filtramos
